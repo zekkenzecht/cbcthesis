@@ -1,85 +1,66 @@
 @extends('_layouts.app')
-@section('content')
- <!-- Content Header (Page header) -->
-     <section class="content-header">
-      <h1>
-       Permissions List
-        <small>This is the list of all of the Permissions</small>
-      </h1>
+@section('breadcrumbs')
+    <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li><a href="/admin/permission">Permission</a></li>
+        <li><a href="/admin/permissions">Permission</a></li>
       </ol>
     </section>
-
+@endsection
+@section('content')
+ <!-- Content Header (Page header) -->
+ 
     <!-- Main content -->
     <section class="content">
-      {!! Form::open(['action' => 'PermissionController@create','method' => 'get']) !!}
-      {!! Form::submit('Add new Permission	', ['class' => 'btn btn-lg bg-olive margin']) !!}
-      {!! Form::close() !!}
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Permissions</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="post" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>{!! Form::checkbox('postid','','', ['id' => 'check_all']) !!}</th>
+      <div class="col-md-11">
+        <div class="form-group">
+      {!! Form::open(['action' => 'User\PermissionController@bulkDelete','method' => 'post']) !!}
+        </div>
+  
+                <!-- START DEFAULT DATATABLE -->
+      <div class="panel panel-success">
+          <div class="panel-heading">                                
+              <h3 class="panel-title" style="background-color: ;">Permsissions Table &nbsp;</h3>
+              <a href="/admin/permissions/create" class="btn btn-rounded btn-lg btn-success">Add new Permission</a>                        
+              {!! Form::submit('Delete all Selected', ['class' => 'btn btn-rounded btn-lg btn-danger']) !!}
+          </div>
+      <div class="panel-body">
+          <table class="table datatable">
+              <thead>
+                  <tr>
+                  <th>{!! Form::checkbox('','','', ['id' => 'check_all']) !!}</th>
                   <th>Permission ID</th>
                   <th>Permission Name</th>
                   <th>Created At</th>
                   <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                 @foreach ($permission as $permission)
+                  </tr>
+              </thead>
+              <tbody>
+                  @foreach ($permission as $permission)
                  <tr>
-                   <th>{!! Form::checkbox('permissionid','','', ['class' => 'sub_chk']) !!}</th>
+                   <th>{!! Form::checkbox('permissionid[]',$permission->id,'', ['class' => 'sub_chk']) !!}</th>
                    <td>{{ $permission->id }}</td>
                    <td>{{ $permission->name }}</td>
                    <td>{{ $permission->created_at }}</td>
                    <td>
-                    {!! Form::open(['action' => ['PermissionController@destroy',$permission->id],'method' => 'delete']) !!}
-                   <a href="/admin/permissions/{{ $permission->id }}" class="btn btn-sm bg-purple ">View</a>
-                  <a href="/admin/permissions/{{ $permission->id }}/edit" class="btn btn-sm bg-navy">Edit</a>
-                  {!! Form::submit('Delete', ['class'=>'btn btn-sm btn-danger']) !!}
-                  {!! Form::close() !!}
+                   <a href="/admin/permissions/{{ $permission->id }}" class="btn btn-rounded btn-lg btn-info ">View</a>
+                  <a href="/admin/permissions/{{ $permission->id }}/edit" class="btn btn-rounded btn-lg btn-primary">Edit</a>
+                  <a href="/admin/permissions/del/{{ $permission->id }}" class="btn btn-rounded btn-lg btn-danger">Delete</a>
                     </td>
                  </tr>
                  @endforeach
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
+                          </tbody>
+                      </table>
+              </div>
           </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
+          </div>
+        </section>                 <!-- END DEFAULT DATATABLE -->
+  {!! Form::close() !!}
 @endsection
 @section('scripts')
-<script>
-  $(function () {
-    $('#post').DataTable({
-      'paging'      : true,
-      'lengthChange': true,
-      'searching'   : true,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : true
-    })
-  })
-</script>
+
+@include('_partials.datatables')
+
 <script type="text/javascript">
 jQuery('#check_all').on('click', function(e) {
  if($(this).is(':checked',true))  

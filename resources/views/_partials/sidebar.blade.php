@@ -1,46 +1,49 @@
-<aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="{{ asset('') }}{{ Auth::user()->avatar }}" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>{{ Auth::user()->name }}</p>
-          <small></small>
-        </div>
-      </div>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Main Menu</li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Post</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-           <li><a href="/admin/posts">Manage Posts</a></li>
-           <li><a href="#">Pending Requests</a></li>
-          </ul>
+<!-- START PAGE SIDEBAR -->
+<div class="page-sidebar">
+    <!-- START X-NAVIGATION -->
+    <ul class="x-navigation">
+        <li class="xn-logo">
+            <a href="index.html">CBC</a>
+            <a href="#" class="x-navigation-control"></a>
         </li>
-         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>User Administration</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-           <li><a href="/admin/roles">Roles</a></li>
-           <li><a href="/admin/permissions">Permissions</a></li>
-           <li><a href="/admin/users">Manage Users</a></li>
-          </ul>
-        </li>
-        </li>
-    </section>
-    <!-- /.sidebar -->
-  </aside>
+        <li class="xn-profile">
+            <a href="#" class="profile-mini">
+                <img src="{{ asset('') }}{{ Auth::user()->avatar }}" alt="John Doe"/>
+            </a>
+            <div class="profile">
+                <div class="profile-image">
+                    <img src="{{ asset('') }}{{ Auth::user()->avatar }}" alt="John Doe"/>
+                </div>
+                <div class="profile-data">
+                    <div class="profile-data-name">{{ Auth::user()->name }}</div>
+                    <div class="profile-data-title">Jr. Web Developer</div>
+                </div>
+                <div class="profile-controls">
+                    <a href="pages-profile.html" class="profile-control-left"><span class="fa fa-info"></span></a>
+                    <a href="pages-messages.html" class="profile-control-right"><span class="fa fa-envelope"></span></a>
+                </div>
+            </div>                                                                        
+</li>
+<li class="xn-title">Menu</li>
+<li class="active">
+<a href="index.html"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>                        
+</li>     
+      
+@role('super-admin')
+@include('_partials.sidebar.admin')   
+@endrole
+@role('communications')
+@endrole
+@role('pastor-secretaries')
+@endrole
+@role('ministry-head-and-secretaries')
+@endrole
+@role('members')
+@include('_partials.sidebar.member')
+@endrole
+
+</ul>
+
+    <!-- END X-NAVIGATION -->
+</div>
+<!-- END PAGE SIDEBAR -->

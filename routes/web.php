@@ -10,27 +10,61 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-//routes for forums
-  		Route::resource('/posts','PostController');
-			Route::post('/posts/draft','PostDraftController@store')->name('draft');
-			Route::put("posts/archive/{id?}",'PostArchiveController@update')->name('archive');
-//--End--//
-
 Route::get('/dashboard','PagesController@dashboard');
-
+Route::get('/',function(){
+	return redirect('/home');
+});
 //--Route for User management--//
 Route::middleware(['role:super-admin'])->group(function () {
  	 Route::prefix('admin')->group(function () {
-			Route::resource('/roles','RoleController');
-			Route::resource('/users','UserController');
-			Route::resource('/permissions','PermissionController');
-			Route::resource('/posts','PostController');
-			Route::post('/posts/draft','PostDraftController@store')->name('draft');
-			Route::put("posts/archive/{id?}",'PostArchiveController@update')->name('archive');
+		Route::resource('/roles','User\\RoleController');
+		Route::resource('/users','User\\UserController');
+		Route::resource('/permissions','User\\PermissionController');
+		Route::post('/users/bulkchange','User\\UserController@bulkChange');
+		Route::get('/users/stat/{id}','User\\UserController@destroy');
+		Route::get('/roles/del/{id}','User\\RoleController@destroy');
+		Route::post("/roles/bulkdelete",'User\\RoleController@bulkDelete')->name('bulk');
+		Route::get("/permissions/del/{id}",'User\\PermissionController@destroy');
+		Route::post("/permissions/bulkDelete",'User\\PermissionController@bulkDelete');
+		Route::resource('/devotions','DevotionController');
+		Route::get('/devotions/{id}/del','DevotionController@destroy');
+		Route::post('/devotions/buklDelete','DevotionController@bulkDelete');
 });
 });
 //--End--//
+
+Route::middleware(['role:super-admin'])->group(function () {
+ 	Route::prefix('admin')->group(function () {
+ 		//--Route for Posts Admin Management--//
+		Route::resource('/posts','Post\\PostController');
+		Route::get('archives','Post\\PostArchiveController@index');
+		Route::post('/posts/draft','Post\\PostDraftController@store')->name('draft');
+	
+		Route::get('/prequest','Post\\PostRequestController@index')->name('prequest');
+		Route::post('/admin/posts/bulkchange','Post\\PostArchiveController@bulkChange');
+		Route::put('/prequest/approval/{id}','Post\\PostRequestController@approval');
+		Route::get("/posts/arch/{id?}",'Post\\PostArchiveController@update')->name('archive');
+		Route::delete('/prequest/cancel/{id}','Post\\PostRequestController@destroy')->name('preqdecline');
+		//--End--//
+		//--routes for calendar--//
+		Route::resource('calendar', 'EventController');
+		Route::get('calendar/{id}/del','EventController@destroy');
+		Route::post('calendar/bulkDelete', 'EventController@bulkDelete');
+		//--End--//
+		//--routes for assimilation--//
+		Route::resource('assimilation','AssimilationController');
+		//--end--//
+});
+});	
+
+	
+//--Route for Post Making Request--//
+Route::middleware(['role:members'])->group(function () {
+ 	 Route::resource('/prequest','Post\\PostRequestController');
+});
+//--End--//
+//--Authentication Routes--//
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
+//--End--//

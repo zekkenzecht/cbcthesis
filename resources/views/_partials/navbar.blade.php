@@ -1,49 +1,21 @@
- <header class="main-header">
-    <!-- Logo -->
-    <a href="/" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>C</b>BC</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>CityBible</b>Church</span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          
-           <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ asset('') }}{{ Auth::user()->avatar }}" class="user-image" alt="User Image">
-              <span class="hidden-xs">{{ Auth::user()->name }}</span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="{{ asset('') }}{{ Auth::user()->avatar }}" class="img-circle" alt="User Image">
-                <p>
-                  {{ Auth::user()->name }}
-                  <small>Member since Nov. 2012</small>
-                </p>
-              </li>
-              <!-- Menu Body -->
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-primary btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  <a href="#" class="btn btn-danger  btn-flat">Sign out</a>
-                </div>
-              </li>
-            </ul>
-          </li>
-    
-    </nav>
-  </header>
-
-  
+<!-- START X-NAVIGATION VERTICAL -->
+<ul class="x-navigation x-navigation-horizontal x-navigation-panel">
+<!-- TOGGLE NAVIGATION -->
+<li class="xn-icon-button">
+    <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
+</li>
+<!-- END TOGGLE NAVIGATION -->
+<!-- SEARCH -->
+<li class="xn-search">
+    <form role="form">
+        <input type="text" name="search" placeholder="Search..."/>
+    </form>
+</li>   
+<!-- END SEARCH -->
+<!-- SIGN OUT -->
+<li class="xn-icon-button pull-right">
+    <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>                        
+</li> 
+<!-- END SIGN OUT -->
+</ul>
+<!-- END X-NAVIGATION VERTICAL -->                     

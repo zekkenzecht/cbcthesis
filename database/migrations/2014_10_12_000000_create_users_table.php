@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('contact');
             $table->string('gender');
             $table->date('birthdate');
+            $table->string('status')->default('for-activation');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

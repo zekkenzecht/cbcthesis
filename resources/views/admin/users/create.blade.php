@@ -1,103 +1,130 @@
 @extends('_layouts.app')
 @section('content')
   {{-- Add new User --}}
-
-  	<div class="col-md-6 col-md-offset-3">
-          <div class="box box-success">
-            <div class="box-header">
-              <h3 class="box-title">Add a new user</h3>
+<div class="row">
+    <div class="col-md-11">
+        
+    
+          {!! Form::open(['action' => 'User\UserController@store','method' => 'post','enctype' => 'multipart/form-data' ,'class' =>  'form-horizontal']) !!}
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title"><strong>Add New</strong>&nbsp;User</h3>
             </div>
-            <div class="box-body">
-            <div class="form-group">
-        {!! Form::open(['action' => 'UserController@store','method' => 'post','enctype' => 'multipart/form-data']) !!}
-				{!! Form::label('name','Full Name:', []) !!}
-				{!! Form::text('name',null, ['placeholder' => 'Enter Full Name...','class' =>'form-control input']) !!}
-         {!! Form::label('avatar','Avatar', []) !!}
-         <div class="row">
-          <div class="col-md-6">
-            {!! Form::file('avatar', ['id' => 'avatar']) !!}
-             <p class="help-block">Upload an Avatar</p>
-          </div>
-          <div class="col-md-5">
-            {!! Form::label('role','Role:', []) !!}
-            {!! Form::select('role',$role,$role, ['class' => 'form-control']) !!}
-          </div>
-         </div> 
-        <div class="row">
-          <div class="col-md-6">
-        {!! Form::label('email','Email Address:', []) !!}
-        {!! Form::email('email',null, ['placeholder' => 'Enter Email Address','class' => 'form-control']) !!}
-          </div>
-        <div class="col-md-6">
-          
-        </div>
-        <div class="col-md-6">
-          {!! Form::label('contact','Phone No:', []) !!}
-          <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-phone"></i>
-                  </div>
-                  <input name='contact' type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
-          </div>
-        </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Birthdate:</label>
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="datepicker" name="birthdate">
+            <div class="panel-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti excepturi temporibus sed animi architecto velit, atque odio, reprehenderit qui iusto labore neque enim tenetur sequi nostrum, ratione natus ab at. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, illum, debitis itaque, adipisci quam a quis exercitationem sit, iusto magnam odit laudantium veniam ipsa sunt necessitatibus aliquam tempora? Voluptatibus, illo.</p>
+            </div>
+            <div class="panel-body">                                                                        
+                
+                <div class="row">
+                     
+                    <div class="col-md-6">
+                        
+                        <div class="form-group">
+                          {!! Form::label('name','Full Name:', ['class' => 'col-md-3 control-label']) !!}
+                            <div class="col-md-9">                                            
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                  {!! Form::text('name',null, ['placeholder' => 'Enter Full Name...','class' =>'form-control input' ,'required']) !!}
+                                </div>                                            
+                                <span class="help-block">Enter Full name here</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">                             
+                         {!! Form::label('password','Password:', ['class' => 'col-md-3 control-label']) !!}           
+                            <div class="col-md-9 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-unlock-alt"></span></span>
+                                   {!! Form::password('password', ['placeholder' => 'Enter Password ...','class' =>'form-control','required']) !!}
+                                </div>            
+                                <span class="help-block">Enter password here</span>
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                              <label class="col-md-3 control-label">Contact No:</label>
+                              <div class="col-md-9">
+                                  <input type="text" class="mask_phone form-control" value="" id="phone" name="contact" required/>
+                                  <span class="help-block">Example: +639123456789</span>
+                              </div>
+                            </div>   
+                        
+                        <div class="form-group">
+                           {!! Form::label('address','Address:', ['class' => 'col-md-3 control-label']) !!}
+                            <div class="col-md-9 col-xs-12">
+                              {!! Form::textarea('address', null, ['class' => 'form-control','rows' => '5']) !!}
+                                <span class="help-block">Enter Address Here</span>
+                            </div>
+                        </div>
+                        
+                    <div class="form-group">
+                      {!! Form::label('avatar','Avatar:', ['class' => 'col-md-3 control-label']) !!}
+                        <div class="col-md-9">                                       
+                          {!! Form::file('avatar', ['id' => 'filename','class' => 'fileinput btn-primary','title' => 'Browse file']) !!}
+                            <span class="help-block">Upload an Avatar</span>
+                        </div>
+                    </div>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">                                        
+                            <label class="col-md-3 control-label">Birthdate:</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                                    <input type="text" class="form-control datepicker" name="birthdate" required> 
+                                </div>
+                                <span class="help-block">Select a Birthday</span>
+                            </div>
+                        </div>
+                          <div class="form-group">
+                          {!! Form::label('email','Email Address', ['class' => 'col-md-3 control-label']) !!}
+                            <div class="col-md-9">                                            
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-envelope"></span></span>
+                                  {!! Form::email('email',null, ['placeholder' => 'Enter Email...','class' =>'form-control input','required']) !!}
+                                </div>                                            
+                                <span class="help-block">Enter Email address here</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                          {!! Form::label('role','Role:', ['class' => 'col-md-3 control-label']) !!}
+                          <div class="col-md-6">
+                         
+                            {!! Form::select('roles[]', Spatie\Permission\Models\Role::get()->pluck('name','name'), isset($user)?$user->getRoleNames():null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required','multiple'] : ['class' => 'form-control','multiple','required']) !!}
+                        </div>
+                        </div>
+                        
+                         <div class="form-group">
+                            {!! Form::label('gender','Gender:&nbsp;', ['class' => 'col-md-3 control-label']) !!}
+                            <div class="col-md-9">                                       
+                              <input type="radio" name='gender' value="male" required>Male
+                              <input type="radio"  name='gender' value="female" required>Female
+                                <span class="help-block">Select your gender</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-                <!-- /.input group -->
-              </div> 
-            <div class="col-md-6">
-              <div class="form-group"><br>
-                {!! Form::label('gender','Gender:&nbsp;', []) !!}
-                  <input type="radio" class="flat-red" name='gender' value="male">Male
-                  <input type="radio" class="flat-red" name='gender' value="female">Female
-              </div>
-            </div>
-           
-              
-          </div>
-         
-        {!! Form::label('address','Address:', []) !!}
-        {!! Form::text('address',null, ['placeholder' => 'Enter Address ...','class' =>'form-control input']) !!}
-        {!! Form::label('password','Password:', []) !!}
-        {!! Form::password('password', ['placeholder' => 'Enter Password ...','class' =>'form-control input']) !!}
-        {!! Form::label('confirm','Confirm Password:', []) !!}
-        {!! Form::password('confirm', ['placeholder' => 'Confirm Password','class' =>'form-control input']) !!}
-        </div>
-            </div>
-              <div class="form-group">
-            <div class="box-footer">  
-          			{!! Form::submit('Add Users&nbsp;', ['class' => 'btn btn-primary pull-right']) !!}
-          			{!! Form::close() !!}
-            </div>
-          </div>
-          <!-- /.box -->
-      </div>
-      <!-- /.row -->
-    </div>
-    {{-- ./col --}}
-    @section('scripts')
-    <script type="text/javascript">
-    $(function () {
-    //Date picker
-    $('#datepicker').datepicker({
-      format: 'yyyy/mm/dd',
-      autoclose: true
-    })
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass   : 'iradio_flat-green'
-    })
 
-  })
-    </script>
-    @endsection
+            </div>
+            <div class="panel-footer">
+                {!! Form::submit('Add User&nbsp;', ['class' => 'btn btn-primary pull-right','id' =>'create']) !!}
+                {!! Form::close() !!}
+            </div>
+        </div>
+
+        
+    </div>
+</div>                    
+
+    {{-- ./col --}}
+@section('scripts')
+   <script type="text/javascript" src="{{ asset('backend/js/plugins/bootstrap/bootstrap-file-input.js') }}"></script>
+   <script type="text/javascript" src="{{ asset('backend/js/plugins/maskedinput/jquery.maskedinput.min.js') }}"></script>
+  <script type="text/javascript">
+    jQuery(function($){
+   $("#phone").mask("+639-99999-9999");
+});
+  </script>
+@endsection
 @endsection

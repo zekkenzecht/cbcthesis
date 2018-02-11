@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="form-group">
-	{!! Form::open(['action' => ['PostController@update',$post->id] ,'method' => 'post','enctype' => 'multipart/form-data' ]) !!}
+	{!! Form::open(['action' => ['Post\PostController@update',$post->id] ,'method' => 'post','enctype' => 'multipart/form-data' ]) !!}
 	 <!-- Form Element sizes -->
 	 <div class="row">
 	 <div class="col-md-6">

@@ -1,4 +1,4 @@
-@extends('_layouts.app')
+{{-- @extends('_layouts.app')
 @section('content')
 
 <div class="form-group">
@@ -34,3 +34,4 @@
  </div>
 
 @endsection
+ --}}

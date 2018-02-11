@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
         	 'contact' => '09195608546',
         	 'gender' => 'Male',
         	 'birthdate' => '1997-05-02',
+             'status' => 'active',
         	 'password' => bcrypt('kennethjulianda'),
 		    ]
 

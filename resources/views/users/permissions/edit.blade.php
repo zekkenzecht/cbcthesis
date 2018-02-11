@@ -9,7 +9,7 @@
             </div>
             <div class="box-body">
             <div class="form-group">
-              {!! Form::open(['action' => ['PermissionController@update',$permission->id],'method' => 'post']) !!}
+              {!! Form::open(['action' => ['User\PermissionController@update',$permission->id],'method' => 'post']) !!}
         {!! Form::label('name','Permission Name:', []) !!}
         {!! Form::text('name',$permission->name, ['placeholder' => 'Enter Permisson Name...','class' =>'form-control input']) !!}
 
