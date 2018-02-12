@@ -16,6 +16,8 @@ class RolesTableSeeder extends Seeder
         	[
         	 'name' => 'super-admin',
         	 'guard_name' => 'web',
+            'created_at' =>  date('Y/m/d h:s'),
+           'updated_at' =>  date('Y/m/d h:s'),
 		    ]
 
         ]);
@@ -23,6 +25,8 @@ class RolesTableSeeder extends Seeder
         	[
         	 'name' => 'communications',
         	 'guard_name' => 'web',
+            'created_at' =>  date('Y/m/d h:s'),
+           'updated_at' =>  date('Y/m/d h:s'),
 		    ]
 
         ]);
@@ -30,6 +34,8 @@ class RolesTableSeeder extends Seeder
         	[
         	 'name' => 'pastor-secretaries',
         	 'guard_name' => 'web',
+            'created_at' =>  date('Y/m/d h:s'),
+           'updated_at' =>  date('Y/m/d h:s'),
 		    ]
 
         ]);
@@ -37,6 +43,8 @@ class RolesTableSeeder extends Seeder
         	[
         	 'name' => 'ministry-head-and-secretaries',
         	 'guard_name' => 'web',
+           'created_at' =>  date('Y/m/d h:s'),
+           'updated_at' =>  date('Y/m/d h:s'),
 		    ]
 
         ]);
@@ -44,6 +52,8 @@ class RolesTableSeeder extends Seeder
         	[
         	 'name' => 'members',
         	 'guard_name' => 'web',
+            'created_at' =>  date('Y/m/d h:s'),
+           'updated_at' =>  date('Y/m/d h:s'),
 		    ]
 
         ]);

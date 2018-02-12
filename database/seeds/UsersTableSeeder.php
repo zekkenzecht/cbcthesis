@@ -22,6 +22,8 @@ class UsersTableSeeder extends Seeder
         	 'birthdate' => '1997-05-02',
              'status' => 'active',
         	 'password' => bcrypt('kennethjulianda'),
+              'created_at' =>  date('Y/m/d h:s'),
+           'updated_at' =>  date('Y/m/d h:s'),
 		    ]
 
         ]);

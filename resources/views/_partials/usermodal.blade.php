@@ -18,7 +18,7 @@
                           <tbody>
                               <tr><th>ID</th><td>{{ $userModal->id }}</td></tr>
                               <tr><th> Name </th> <td> {{ $userModal->name }} </td></tr>
-                              <tr><th> Email </th> <td> {{ $userModal->name }} </td></tr>
+                              <tr><th> Email </th> <td> {{ $userModal->email }} </td></tr>
                               <tr><th> Address </th> <td> {{ $userModal->address }} </td></tr>
                               <tr><th> Contact </th> <td> {{ $userModal->contact }} </td></tr>
                               <tr><th> Gender </th> <td> {{ $userModal->gender }} </td></tr>

@@ -14,7 +14,7 @@
   <section class="content">
     <div class="col-md-11">
   
-        {!! Form::open(['action' => 'DevotionController@bulkDelete','method' => 'post']) !!}
+        {!! Form::open(['action' => 'AssignMinistryController@store','method' => 'post']) !!}
         <div class="form-group">
      
          <!-- START DEFAULT DATATABLE -->
@@ -22,7 +22,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">                                
          <a href="/admin/devotions/create" class="btn btn-lg btn-success">Add new Devotion</a>
-         {!! Form::submit('Delete All Checked', ['class' => 'btn btn-lg btn-danger btn-space','id'=>'blkdel']) !!}                             
+         {!! Form::submit('Assign Selected', ['class' => 'btn btn-lg btn-danger btn-space','id'=>'blkdel']) !!}                             
         </div>
     <div class="panel-body">
         <table class="table table-striped datatable">
@@ -31,25 +31,23 @@
 <thead>
 <tr>
     <th>{!! Form::checkbox(null,null,'', ['id' => 'check_all','class' => 'form-check-input']) !!}</th>
-    <th>Topic</th>
-    <th>Passage</th>
-    <th>Content</th>
-    <th>Date</th>
+    <th>Name</th>
+    <th>Avatar</th>
+    <th>Email</th>
+    <th>Ministry</th>
     <th>Action</th>
 </tr>
 </thead>
 <tbody>
-@foreach ($devotion as $devotion)
+@foreach ($user as $user)
 <tr>
-    <td>{!! Form::checkbox('devotionid[]',$devotion->id,'', ['class' => 'sub_chk']) !!}</td>
-    <td>{{ $devotion->topic }}</td>
-    <td>{{ $devotion->passage }}</td>
-    <td>{{ $devotion->content }}</td>
-    <td>{{ $devotion->date }}</td> 
+    <td>{!! Form::checkbox('userid[]',$user->id,'', ['class' => 'sub_chk']) !!}</td>
+    <td>{{ $user->name }}</td>
+    <td><img src="{{ asset("$user->avatar") }}" height="75px" width="75px"></td>
+    <td>{{ $user->email }}</td>
+    <td>{{ $user->ministry }}</td> 
     <td>
-        {!! Form::button('View', ['class' => 'btn btn-info','data-toggle' => 'modal' ,'data-target' => "#$devotion->id"]) !!}
-      <a href="/admin/devotions/{{$devotion->id}}/edit" class="btn btn-primary">Edit</a>
-      <a href="/admin/devotions/{{ $devotion->id }}/del" class="btn btn-danger" id="cfirmdel">Delete</a>
+        {!! Form::button('Assign Ministry', ['class' => 'btn btn-block btn-info','data-toggle' => 'modal' ,'data-target' => "#$user->id"]) !!}
     </td>
 </tr>
 @endforeach
@@ -59,6 +57,9 @@
         </div>
         </div>
  {!! Form::close() !!}<br>
+@foreach ($ministryModal as $ministryModal)
+@include('_partials.ministrymodal')
+@endforeach
 </section>
 @endsection
 @section('scripts')

@@ -23,6 +23,28 @@ class CreateUsersTable extends Migration
             $table->string('gender');
             $table->date('birthdate');
             $table->string('status')->default('for-activation');
+            $table->enum('ministry,',
+                [
+                'NONE','CTSA','MISSIONS',
+                'COMMUNICATION MEDIA DEPARTMENT',
+                'CBC INTEGRATED SCHOOL',
+                'CHILDREN MINISTRY',
+                'MUSIC MINISTRY',
+                'USHERING MINISTRY',
+                'SINGLES PROFESSIONAL MINISTRY',
+                'SPORTS AND RECREATION MINISTRY',
+                'GOLDEN FOLKS MINISTRY',
+                'QUAD MINISTRY',
+                'PASTORAL CARE',
+                'ASSIMILATION',
+                'PRAYER MINISTRY',
+                'YOUTH MINISTRY',
+                'EVANGELISTIC BIBLE STUDIES',
+                'EVANGELISTIC MINISTRY',
+                'MEMBERSHIP MINISTRY',
+                'DISCIPLESHIP CLASSES',
+                'FACILITY MANAGEMENT'
+                ])->default('NONE');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

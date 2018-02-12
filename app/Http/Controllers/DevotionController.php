@@ -96,7 +96,7 @@ class DevotionController extends Controller
                     null,
                     // Add color and link on event
                     [
-                        'color' => '#f05050',
+                        'color' => 'blue',
                         'url' => "/admin/devotions/$value->id/edit",
                     ]
                 );

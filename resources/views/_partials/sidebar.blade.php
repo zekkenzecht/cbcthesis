@@ -37,6 +37,7 @@
 @role('pastor-secretaries')
 @endrole
 @role('ministry-head-and-secretaries')
+@include('_partials.sidebar.ministry')
 @endrole
 @role('members')
 @include('_partials.sidebar.member')

@@ -54,15 +54,28 @@ Route::middleware(['role:super-admin'])->group(function () {
 		//--routes for assimilation--//
 		Route::resource('assimilation','AssimilationController');
 		//--end--//
+		//--Route for --//
+		Route::resource('usersminassign','AssignMinistryController');
+		//--End--//
 });
 });	
 
 	
-//--Route for Post Making Request--//
+
 Route::middleware(['role:members'])->group(function () {
+//--Route for Post Making Request--//
  	 Route::resource('/prequest','Post\\PostRequestController');
+//--end--//
+
 });
-//--End--//
+
+Route::middleware(['role:ministry-head-and-secretaries'])->group(function () {
+//--route for felloship request
+ 	 Route::resource('/frequest','FellowshipRequestController');
+ 	 Route::post('/frequest/bulkDelete','FellowshipRequestController@bulkDelete');
+ //--End--//
+});
+
 //--Authentication Routes--//
 Auth::routes();
 

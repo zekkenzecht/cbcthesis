@@ -15,7 +15,13 @@
     <li><a href="/admin/roles"><span class="glyphicon glyphicon-user"></span>Roles</a></li>
     <li><a href="/admin/permissions"><span class="fa fa-user"></span>Permissions</a></li>
     </ul>      
-       
+</li>
+<li class="xn-openable">
+    <a href="#"><span class="fa fa-users"></span> <span class="xn-text">Ministry</span></a>
+    <ul>
+    <li><a href="/admin/usersminassign"><span class="fa fa-user-md"></span>Assign Users</a></li>
+    <li><a href="/admin/fellowship"><span class="glyphicon glyphicon-user"></span>Fellowship Manager</a></li>
+    </ul>      
 </li>
 <li class="xn-openable">
     <a href="#"><span class="fa fa-users"></span> <span class="xn-text">Forum  Manager</span></a>
