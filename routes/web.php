@@ -39,7 +39,7 @@ Route::middleware(['role:super-admin'])->group(function () {
 		Route::resource('/posts','Post\\PostController');
 		Route::get('archives','Post\\PostArchiveController@index');
 		Route::post('/posts/draft','Post\\PostDraftController@store')->name('draft');
-	
+
 		Route::get('/prequest','Post\\PostRequestController@index')->name('prequest');
 		Route::post('/admin/posts/bulkchange','Post\\PostArchiveController@bulkChange');
 		Route::put('/prequest/approval/{id}','Post\\PostRequestController@approval');
@@ -54,13 +54,24 @@ Route::middleware(['role:super-admin'])->group(function () {
 		//--routes for assimilation--//
 		Route::resource('assimilation','AssimilationController');
 		//--end--//
-		//--Route for --//
+		//--Route for assigning ministry --//
 		Route::resource('usersminassign','AssignMinistryController');
 		//--End--//
+		//--Route for fellowship request approval--//
+		Route::resource('/fellowship','FellowshipController');
+		Route::get('/frequest/approve/{id}','FellowshipController@update');
+		Route::get('/frequest/decline/{id}','FellowshipController@destroy');
+		Route::post('/frequest/bulkdecline','FellowshipController@bulkDecline');
+		Route::post('/frequest/bulkapprove','FellowshipController@bulkApprove');
+		Route::post('/frequest/bulkchange','FellowshipController@bulkChange');
+		//--End--//
+		//--Route for Media Management--//
+		Route::resource('/media','MediaController');
+		//--End--//
 });
-});	
+});
 
-	
+
 
 Route::middleware(['role:members'])->group(function () {
 //--Route for Post Making Request--//
@@ -73,6 +84,7 @@ Route::middleware(['role:ministry-head-and-secretaries'])->group(function () {
 //--route for felloship request
  	 Route::resource('/frequest','FellowshipRequestController');
  	 Route::post('/frequest/bulkDelete','FellowshipRequestController@bulkDelete');
+	 Route::get('/frequest/{id}/del','FellowshipRequestController@destroy');
  //--End--//
 });
 

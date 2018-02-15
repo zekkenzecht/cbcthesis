@@ -15,6 +15,7 @@ class CreateFellowship extends Migration
     {
         Schema::create('fellowships', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->string('name');
             $table->mediumText('description');
             $table->string('venue');
