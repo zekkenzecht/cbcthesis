@@ -14,6 +14,8 @@ Route::get('/dashboard','PagesController@dashboard');
 Route::get('/',function(){
 	return redirect('/home');
 });
+
+Route::post('/registration','User\\RegisterController@store')->name('register');
 //--Route for User management--//
 Route::middleware(['role:super-admin'])->group(function () {
  	 Route::prefix('admin')->group(function () {
@@ -29,6 +31,15 @@ Route::middleware(['role:super-admin'])->group(function () {
 		Route::resource('/devotions','DevotionController');
 		Route::get('/devotions/{id}/del','DevotionController@destroy');
 		Route::post('/devotions/buklDelete','DevotionController@bulkDelete');
+		Route::resource('/announcements','AnnouncementController');
+		Route::post('/announcement/bulkdelete','AnnouncementController@bulkDelete');
+		Route::get('/email/create','EmailController@create');
+		Route::post('/sendemail','EmailController@send');
+		Route::resource('/branches','BranchesController');
+		Route::post('/branches/bulkdelete','BranchesController@bulkDelete');
+		Route::get('/branches/{id}/del','BranchesController@destroy');
+		Route::resource('classes','ClassesController');
+		Route::post('/classes/bulkdelete','ClassesController@bulkDelete');
 });
 });
 //--End--//
@@ -93,3 +104,29 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 //--End--//
+
+
+// Route::get('sendemail', function () {
+
+//     $data = array(
+//         'name' => "Learning Laravel",
+//     );
+
+//     Mail::send('emails.send', $data, function ($message) {
+
+//         $message->from('geeelyn07@gmail.com', 'Learning Laravel');
+
+//         $message->to('geeelyn07@gmail.com')->subject('Learning Laravel test email');
+
+//     });
+
+//     return "Your email has been sent successfully";
+
+// });
+
+// Route::get('send_test_email', function(){
+// 	Mail::raw('Sending emails with Mailgun and Laravel is easy!', function($message)
+// 	{
+// 		$message->to('juliandakennethjay14@gmail.com');
+// 	});
+// });

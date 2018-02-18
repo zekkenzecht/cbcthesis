@@ -18,10 +18,10 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('avatar')->default('dist/users/defaultavatar.png');
             $table->string('email')->unique();
-            $table->mediumText('address');
-            $table->string('contact');
-            $table->string('gender');
-            $table->date('birthdate');
+            $table->mediumText('address')->nullable();
+            $table->string('contact')->nullable();
+            $table->string('gender')->nullable();
+            $table->date('birthdate')->nullable();
             $table->string('status')->default('for-activation');
             $table->enum('ministry,',
                 [

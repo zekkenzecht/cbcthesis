@@ -1,77 +1,68 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>Login</title>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" type="text/css" href="{{ asset('front/css/bootstrap.css') }}">
+   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link href="{{ asset('front/css/style.css') }}" rel="stylesheet" type="text/css">
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+</head>
+<body>
+<div class="container-fluid bg">
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                        {{ csrf_field() }}
+  <div class="row">
+   <div class="col-md-4 col-sm-4 col-xs-12"></div>
+   <div class="col-md-4 col-sm-4 col-xs-12">
+     <form class="regpanel" action="/registration" method="post">
+       {{ csrf_field() }}
+     <h1 class="scolor">Sign Up</h1>
+       <!-- <div class="form-group">
+           <label>First Name</label>
+           <input type="name" class="form-control" id="fname" placeholder="First Name" required>
+       </div> -->
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+       <div class="form-group input-group">
+           <span class="input-group-addon">
+             <span class="glyphicon glyphicon-user"></span>
+           </span>
+           <input type="name" class="form-control" id="fname" placeholder="Full name" name="name" required>
+       </div>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
 
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+       <div class="form-group input-group">
+           <span class="input-group-addon">
+             <span class="glyphicon glyphicon-align-left"></span>
+           </span>
+           <input type="email" class="form-control" id="email" placeholder="Email Address" name="email" required>
+       </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+       <div class="form-group input-group">
+           <span class="input-group-addon">
+             <span class="glyphicon glyphicon-lock"></span>
+           </span>
+           <input type="password" class="form-control" id="password1" placeholder="Password" required>
+       </div>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+       <div class="form-group input-group">
+           <span class="input-group-addon">
+             <span class="glyphicon glyphicon-exclamation-sign"></span>
+           </span>
+           <input type="password" class="form-control" id="password" placeholder="Confirm Password" name="password" required>
+       </div>
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+       <div class="signup">
+           <button type="submit" class="btn btn-success btn-block">Sign Up</button>
+       </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+   </div>
+     </form>
+   </div>
+   <div class="col-md-4 col-sm-4 col-xs-12"></div>
+       </div>
+</body>
+   <script type="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script type="{{ asset('front/js/bootstrap.min.js') }}"></script>
+</html>

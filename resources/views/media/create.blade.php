@@ -14,10 +14,10 @@
 @stop
 @section('scripts')
     <script type="text/javascript" src="{{asset('backend')}}/js/plugins/dropzone/dropzone.min.js"></script>
-    {{-- <script type="text/javascript">
+    <script type="text/javascript">
         Dropzone.options.imageUpload = {
             maxFilesize         :       1,
             acceptedFiles: ".jpeg,.jpg,.png,.gif"
         };
-      </script> --}}
+      </script>
 @endsection

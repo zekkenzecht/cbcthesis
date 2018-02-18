@@ -32,15 +32,16 @@
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
                 <input type="text" class="form-control datepicker" name="date" required>
                 </div><br>
-        {!! Form::label('time','Time: ', []) !!}
-    <div class="input-group bootstrap-timepicker">
-         <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
-        <input name="time" type="text" class="form-control timepicker"/>
-    </div>
+                {!! Form::label('time','Time: ', []) !!}
+            <div class="input-group bootstrap-timepicker">
+                 <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                <input name="time" type="text" class="form-control timepicker"/>
+            </div>
         </div>                                     
         </div>
     </div>
  </div>
+
         <div class="panel panel-footer">
             {!! Form::submit('Make a request', ['Class' => 'btn btn-block btn-lg btn-success']) !!}
         </div>

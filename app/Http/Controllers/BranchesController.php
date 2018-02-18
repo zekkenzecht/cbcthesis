@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Media;
-class MediaController extends Controller
+use App\Branch;
+class BranchesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,9 @@ class MediaController extends Controller
      */
     public function index()
     {
-        //
+      $branches = Branch::all();
+      $branches2 = Branch::all();
+      return view('branches.index',compact('branches'))->with('branches2',$branches2);
     }
 
     /**
@@ -23,7 +25,7 @@ class MediaController extends Controller
      */
     public function create()
     {
-        return view('media.create');
+
     }
 
     /**
@@ -34,24 +36,14 @@ class MediaController extends Controller
      */
     public function store(Request $request)
     {
-
-      $image = $request->file('file');
-      $imageName = uniqid().'_'.time().'_'.$image->getClientOriginalName();
-      $image->move(public_path('images'),$imageName);
-      $path = public_path('images');
-
-      $file = new Media;
-      $storedb = $file->create(
-        [
-          'path' => $imageName
-        ]);
-          return response()->json(['success'=>$imageName]);
-   }
-
-
-
-
-
+        $branches = new Branch;
+        $branches->branchName = $request->name;
+        $branches->address = $request->address;
+        $branches->pastor = $request->pastor;
+        $branches->service = $request->service;
+        $branches->save();
+        return redirect()->back();
+    }
 
     /**
      * Display the specified resource.
@@ -84,7 +76,13 @@ class MediaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $branch = Branch::findOrFail($id);
+        $branch->branchName = $request->name;
+        $branch->address = $request->address;
+        $branch->pastor = $request->pastor;
+        $branch->service = $request->service;
+        $branch->save();
+        return redirect()->back();
     }
 
     /**
@@ -95,6 +93,20 @@ class MediaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $branches = Branch::findOrFail($id);
+        $branches->delete();
+        return redirect()->back();
+    }
+
+    public function bulkDelete(Request $request)
+    {
+      foreach ($request->input('branchid') as $key => $value) 
+      {
+         $branch = Branch::findOrFail($value);
+         $branch->delete();
+        
+      }
+
+       return redirect()->back();
     }
 }

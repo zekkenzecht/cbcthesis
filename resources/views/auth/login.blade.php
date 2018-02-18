@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <h1 style="color: white !important;">Login</h1>
                 </div>
-                
+
                   <!-- <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
                   </div> -->
@@ -63,7 +63,7 @@
                   <div class="form-group">
                     <button type="submit" class="btn btn-info btn-block">Login</button>
                   </div>
-                  
+
                   <div class="form-group forgotpassword">
                     <a href="#" style="color: white !important">Forgot Password?</a>
                   </div>
@@ -71,7 +71,7 @@
                   <div>
                         <ul>
                             <li><a href="#"><i class="fa fa-facebook" aria-hidden="true" style="color: white !important;"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true" style="color: white !important;></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true" style="color: white !important;"></i></a></li>
                         </ul>
                   </div>
                 </form>

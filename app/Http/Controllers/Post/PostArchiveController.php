@@ -11,6 +11,7 @@ class PostArchiveController extends Controller
     public function index()
     {   
         $post = Post::where('archive', '=' ,1)->get();
+        $post->user->name;
         return view('posts.archives')->with('post',$post);
     }
     //--Archiving Post--//
