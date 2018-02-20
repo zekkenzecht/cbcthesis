@@ -14,14 +14,14 @@
   <section class="content">
     <div class="col-md-11">
   
-        {!! Form::open(['action' => 'ClassesController@bulkDelete','method' => 'post']) !!}
+        {!! Form::open(['action' => 'ClassesRequestController@bulkDelete','method' => 'post']) !!}
         <div class="form-group">
      
          <!-- START DEFAULT DATATABLE -->
         </div>
     <div class="panel panel-primary">
         <div class="panel-heading">                                
-         <a href="/admin/classes/create" class="btn btn-lg btn-success">Add a new Class</a>
+         <a href="/fclasses/create" class="btn btn-lg btn-success">Request new Class</a>
          {!! Form::submit('Delete All Checked', ['class' => 'btn btn-lg btn-danger btn-space','id'=>'blkdel']) !!}                             
         </div>
     <div class="panel-body">
@@ -48,8 +48,8 @@
     <td>{{ ucwords($class->status) }}</td>
     <td>
         {!! Form::button('View', ['class' => 'btn btn-info','data-toggle' => 'modal' ,'data-target' => "#$class->id"]) !!}
-      <a href="/admin/classes/{{$class->id}}/edit" class="btn btn-primary">Edit</a>
-      <a href="/admin/classes/{{ $class->id }}/del" class="btn btn-danger" id="cfirmdel">Delete</a>
+      <a href="/fclasses/{{$class->id}}/edit" class="btn btn-primary">Edit</a>
+      <a href="/fclasses/{{ $class->id }}/del" class="btn btn-danger" id="cfirmdel">Delete</a>
     </td>
 </tr>
 @endforeach

@@ -14,15 +14,14 @@
   <section class="content">
     <div class="col-md-11">
   
-        {!! Form::open(['action' => 'ClassesController@bulkDelete','method' => 'post']) !!}
+        {!! Form::open(['action' => 'EnrollmentController@bulkEnroll','method' => 'post']) !!}
         <div class="form-group">
      
          <!-- START DEFAULT DATATABLE -->
         </div>
     <div class="panel panel-primary">
         <div class="panel-heading">                                
-         <a href="/admin/classes/create" class="btn btn-lg btn-success">Add a new Class</a>
-         {!! Form::submit('Delete All Checked', ['class' => 'btn btn-lg btn-danger btn-space','id'=>'blkdel']) !!}                             
+         {!! Form::submit('Enroll All Checked', ['class' => 'btn btn-lg btn-success btn-space','id'=>'blkdel']) !!}                             
         </div>
     <div class="panel-body">
         <table class="table table-striped datatable">
@@ -31,25 +30,21 @@
 <thead>
 <tr>
     <th>{!! Form::checkbox(null,null,'', ['id' => 'check_all','class' => 'form-check-input']) !!}</th>
-    <th>Class Name</th>
-    <th>Description</th>
-    <th>Number of Sessions</th>
-    <th>Status</th>
+    <th>Avatar</th>
+    <th>Name</th>
+    <th>Email</th>
     <th>Action</th>
 </tr>
 </thead>
 <tbody>
-@foreach ($classes as $class)
+@foreach ($user as $user)
 <tr>
-    <td>{!! Form::checkbox('classid[]',$class->id,'', ['class' => 'sub_chk']) !!}</td>
-    <td>{{ $class->classname }}</td>
-    <td>{{ $class->description }}</td>
-    <td>{{ $class->numberofsessions }}</td>
-    <td>{{ ucwords($class->status) }}</td>
+    <td>{!! Form::checkbox('userid[]',$user->id,'', ['class' => 'sub_chk']) !!}</td>
+    <td><img src="{{ asset("$user->avatar") }}" height="75px" width="75px"></td>
+    <td>{{ $user->name  }}</td>
+    <td>{{ $user->email }}</td>
     <td>
-        {!! Form::button('View', ['class' => 'btn btn-info','data-toggle' => 'modal' ,'data-target' => "#$class->id"]) !!}
-      <a href="/admin/classes/{{$class->id}}/edit" class="btn btn-primary">Edit</a>
-      <a href="/admin/classes/{{ $class->id }}/del" class="btn btn-danger" id="cfirmdel">Delete</a>
+        {!! Form::button('Enroll', ['class' => 'btn btn-info btn-block','data-toggle' => 'modal' ,'data-target' => "#$user->id"]) !!}
     </td>
 </tr>
 @endforeach
@@ -60,6 +55,10 @@
         </div>
  {!! Form::close() !!}<br>
 </section>
+@foreach ($enrollModal as $enrollModal)
+  @include('_partials.modals.enrollmodal')
+@endforeach
+
 @endsection
 @section('scripts')
 

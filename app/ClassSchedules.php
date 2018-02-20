@@ -8,7 +8,8 @@ class ClassSchedules extends Model
 {
 	protected $table = 'classschedules';
 	protected $fillable = ['class_id', 'schedule'];
-    public function schedule(){
+
+    public function classes(){
     	return $this->hasMany('App\Classes');
     }
 }

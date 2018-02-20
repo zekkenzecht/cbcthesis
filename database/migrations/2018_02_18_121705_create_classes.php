@@ -14,11 +14,14 @@ class CreateClasses extends Migration
     public function up()
     {
         Schema::create('classes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->unsigned();
             $table->string('classname');
             $table->mediumText('description');
             $table->integer('numberofsessions');
+            $table->integer('user_id');
+            $table->string('status');
             $table->timestamps();
+            
         });
     }
 

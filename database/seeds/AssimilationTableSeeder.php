@@ -11,104 +11,145 @@ class AssimilationTableSeeder extends Seeder
      */
     public function run()
     {
-          DB::table('assimilation')->insert([
+          DB::table('assimilations')->insert([
         	[
         	 'name' => 'Dynamic Worship Class',
         	 'created_at' =>  date('Y/m/d h:s'),
            'updated_at' =>  date('Y/m/d h:s'),
-		    ]
+		      ]
 
         	]);
 
-          DB::table('assimilation')->insert([
-        	[
-        	 'name' => 'Assimilation and Connection',
-        	  'created_at' =>  date('Y/m/d h:s'),
+           DB::table('assimilations')->insert([
+          [
+           'name' => 'Sunday Counselling',
+           'created_at' =>  date('Y/m/d h:s'),
            'updated_at' =>  date('Y/m/d h:s'),
-		    ]
+          ]
 
-        	]);
+          ]);
 
-          DB::table('assimilation')->insert([
-        	[
-        	 'name' => 'Immediate Follow up',
-        	  'created_at' =>  date('Y/m/d h:s'),
+            DB::table('assimilations')->insert([
+          [
+           'name' => 'Immediate follow up and visitation',
+           'created_at' =>  date('Y/m/d h:s'),
            'updated_at' =>  date('Y/m/d h:s'),
-		    ]
+          ]
 
-        	]);
+          ]);
 
-          DB::table('assimilation')->insert([
-        	[
-        	 'name' => 'Probation Period',
-        	  'created_at' =>  date('Y/m/d h:s'),
+
+            DB::table('assimilations')->insert([
+          [
+           'name' => 'EBS/Evangelistic class',
+           'created_at' =>  date('Y/m/d h:s'),
            'updated_at' =>  date('Y/m/d h:s'),
-		    ]
+          ]
 
-        	]);
+          ]);
 
-           DB::table('assimilation')->insert([
-        	[
-        	 'name' => 'Quad/Growth/Discipleship',
-        	 'created_at' =>  date('Y/m/d h:s'),
+            DB::table('assimilations')->insert([
+          [
+           'name' => 'Full 8 Weeks Sunday Service Attendance',
+           'created_at' =>  date('Y/m/d h:s'),
            'updated_at' =>  date('Y/m/d h:s'),
-		    ]
+          ]
 
-        	]);
+          ]);
 
-            DB::table('assimilation')->insert([
-        	[
-        	 'name' => 'Membership/Baptism Class',
-        	 'created_at' =>  date('Y/m/d h:s'),
+            DB::table('assimilations')->insert([
+          [
+           'name' => 'Presentation as Harvest',
+           'created_at' =>  date('Y/m/d h:s'),
            'updated_at' =>  date('Y/m/d h:s'),
-		    ]
+          ]
 
-        	]);
+          ]);
 
-        	DB::table('assimilation')->insert([
-        	[
-        	 'name' => 'Elders Interview',
-        	  'created_at' =>  date('Y/m/d h:s'),
+            DB::table('assimilations')->insert([
+          [
+           'name' => 'Incorporate to care group',
+           'created_at' =>  date('Y/m/d h:s'),
            'updated_at' =>  date('Y/m/d h:s'),
-		    ]
+          ]
 
-        	]);
+          ]);
 
-        	DB::table('assimilation')->insert([
-        	[
-        	 'name' => 'Baptism Rites',
-        	 'created_at' =>  date('Y/m/d h:s'),
+            DB::table('assimilations')->insert([
+          [
+           'name' => 'New Believers Class',
+           'created_at' =>  date('Y/m/d h:s'),
            'updated_at' =>  date('Y/m/d h:s'),
-		    ]
+          ]
 
-        	]);
+          ]);
 
-
-        	DB::table('assimilation')->insert([
-        	[
-        	 'name' => 'Presentation to Congregation',
-        	 'created_at' =>  date('Y/m/d h:s'),
+            DB::table('assimilations')->insert([
+          [
+           'name' => 'Baptism/Membership Class',
+           'created_at' =>  date('Y/m/d h:s'),
            'updated_at' =>  date('Y/m/d h:s'),
-		    ]
+          ]
 
-        	]);
+          ]);
 
-        	DB::table('assimilation')->insert([
-        	[
-        	 'name' => 'Ministry Class',
-        	  'created_at' =>  date('Y/m/d h:s'),
+            DB::table('assimilations')->insert([
+          [
+           'name' => 'Baptism/Membership Interview',
+           'created_at' =>  date('Y/m/d h:s'),
            'updated_at' =>  date('Y/m/d h:s'),
-		    ]
+          ]
 
-        	]);
+          ]);
 
-        	DB::table('assimilation')->insert([
-        	[
-        	 'name' => 'Co-Minister',
-        	  'created_at' =>  date('Y/m/d h:s'),
+
+            DB::table('assimilations')->insert([
+          [
+           'name' => 'Baptism Rites',
+           'created_at' =>  date('Y/m/d h:s'),
            'updated_at' =>  date('Y/m/d h:s'),
-		    ]
+          ]
 
-        	]);
+          ]);
+
+            DB::table('assimilations')->insert([
+          [
+           'name' => 'Presentation to congregation',
+           'created_at' =>  date('Y/m/d h:s'),
+           'updated_at' =>  date('Y/m/d h:s'),
+          ]
+
+          ]);
+
+            DB::table('assimilations')->insert([
+          [
+           'name' => 'Growth Class',
+           'created_at' =>  date('Y/m/d h:s'),
+           'updated_at' =>  date('Y/m/d h:s'),
+          ]
+
+          ]);
+
+            DB::table('assimilations')->insert([
+          [
+           'name' => 'Doctrine of grace class',
+           'created_at' =>  date('Y/m/d h:s'),
+           'updated_at' =>  date('Y/m/d h:s'),
+          ]
+
+          ]);
+
+            DB::table('assimilations')->insert([
+          [
+           'name' => 'Co-Minister',
+           'created_at' =>  date('Y/m/d h:s'),
+           'updated_at' =>  date('Y/m/d h:s'),
+          ]
+
+          ]);
+
+
+
+        
     }
 }

@@ -18,7 +18,6 @@
 <ul class="nav nav-tabs" role="tablist">
 <li><a href="#tab-first" role="tab" data-toggle="tab">Active Posts</a></li>
 <li><a href="#tab-second" role="tab" data-toggle="tab">Archives</a></li>
-
 </ul>
 <div class="panel-body tab-content">
 <div class="tab-pane active" id="tab-first">

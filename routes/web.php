@@ -40,6 +40,7 @@ Route::middleware(['role:super-admin'])->group(function () {
 		Route::get('/branches/{id}/del','BranchesController@destroy');
 		Route::resource('classes','ClassesController');
 		Route::post('/classes/bulkdelete','ClassesController@bulkDelete');
+		Route::get('/classes/{id}/del','ClassesController@destroy');
 });
 });
 //--End--//
@@ -79,6 +80,8 @@ Route::middleware(['role:super-admin'])->group(function () {
 		//--Route for Media Management--//
 		Route::resource('/media','MediaController');
 		//--End--//
+		Route::resource('/enrollment','EnrollmentController');
+		Route::post('/enrollment/bulkenroll','EnrollmentController@bulkEnroll');
 });
 });
 
@@ -96,6 +99,9 @@ Route::middleware(['role:ministry-head-and-secretaries'])->group(function () {
  	 Route::resource('/frequest','FellowshipRequestController');
  	 Route::post('/frequest/bulkDelete','FellowshipRequestController@bulkDelete');
 	 Route::get('/frequest/{id}/del','FellowshipRequestController@destroy');
+	 Route::resource('fclasses','ClassesRequestController');
+	 Route::post('fclasses/bulkdelete','ClassesRequestController@bulkDelete');
+	 Route::get('fclasses/{id}/del','ClassesRequestController@destroy');
  //--End--//
 });
 

@@ -1,6 +1,12 @@
 <li>
 <a href="/admin/devotions"><span class="fa fa-desktop"></span> <span class="xn-text">Devotion Manager</span></a>
 </li>
+<li>
+<a href="/admin/email/create"><span class="fa fa-mail"></span> <span class="xn-text">Quick Mail</span></a>
+</li>
+<li>
+<a href="/admin/branches"><span class="fa fa-mail"></span> <span class="xn-text">Branch Manager</span></a>
+</li>
 <li class="xn-openable">
 <a href="index.html"><span class="fa fa-desktop"></span> <span class="xn-text">Monitoring</span></a>
     <ul>

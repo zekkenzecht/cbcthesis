@@ -8,7 +8,7 @@ use App\Classes;
 use App\ClassSchedules;
 use DB;
 use Auth;
-class ClassesController extends Controller
+class ClassesRequestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        $classes = Classes::where('status','=','approved');
-        return view('classes.index')->with('classes',$classes);
+        $classes = Classes::where('user_id','=',Auth::id())->get();
+        return view('classes.requests.index')->with('classes',$classes);
     }
 
     /**
@@ -28,7 +28,7 @@ class ClassesController extends Controller
      */
     public function create()
     {
-        $classes = [];
+         $classes = [];
         $data = ClassSchedules::all();
         if($data->count()) {
             foreach ($data as $key => $value) {
@@ -47,7 +47,7 @@ class ClassesController extends Controller
             }
         }
         $calendar = Calendar::addEvents($classes);
-        return view('classes.create', compact('calendar'));
+        return view('classes.requests.create', compact('calendar'));
     }
 
     /**
@@ -58,6 +58,7 @@ class ClassesController extends Controller
      */
     public function store(Request $request)
     {
+        
        try {
         DB::beginTransaction();
          $classes = new Classes;
@@ -65,7 +66,7 @@ class ClassesController extends Controller
         $classes->classname = $request->name;
         $classes->description = $request->description;
         $classes->numberofsessions = $request->sessions;
-        $classes->status = 'approved';
+        $classes->status = 'for-approval';
         $classes->user_id = Auth::id();
         $classes->save();
         $lastId = DB::getPdo()->lastInsertId();
@@ -90,8 +91,6 @@ class ClassesController extends Controller
        } catch (MySQLException $e) {
            DB::rollBack();
        }
-
-       
     }
 
     /**
@@ -113,7 +112,7 @@ class ClassesController extends Controller
      */
     public function edit($id)
     {
-         $classes = [];
+        $classes = [];
          $class = Classes::findOrFail($id);
         $data = ClassSchedules::all();
         if($data->count()) {
@@ -133,7 +132,7 @@ class ClassesController extends Controller
             }
         }
         $calendar = Calendar::addEvents($classes);
-        return view('classes.edit', compact('calendar','class'));
+        return view('classes.requests.edit', compact('calendar','class'));
     }
 
     /**
@@ -145,7 +144,7 @@ class ClassesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $classes = Classes::findOrFail($id);
+          $classes = Classes::findOrFail($id);
         $date = date($request->date);
         $classes->classname = $request->name;
         $classes->description = $request->description;
@@ -183,7 +182,9 @@ class ClassesController extends Controller
         DB::table('classschedules')->where('class_id','=',$id)->delete();
     }
 
-    public function bulkDelete(){
+    public function bulkDelete(Request $request)
+    {
+
 
     }
 }

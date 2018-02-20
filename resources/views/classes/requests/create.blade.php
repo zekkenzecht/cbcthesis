@@ -10,20 +10,20 @@
     <div class="row">
         <div class="col-md-4">
             <div class="panel panel-success">
-                <div class="panel panel-heading">Edit a class</div>
+                <div class="panel panel-heading">Request a class</div>
             <div class="panel-body">
-                {!! Form::open(['action' => ['ClassesController@update',$class->id],'method'=>'POST']) !!}
+                {!! Form::open(['action' => 'ClassesRequestController@store','method'=>'POST']) !!}
                 <div class="form-group">
                 {!! Form::label('name','Class Name:', ['class' => 'col-md-4 control-label']) !!}
-                {!! Form::text('name',$class->classname, ['placeholder' => 'Class Name','class' => 'form-control']) !!}
+                {!! Form::text('name',null, ['placeholder' => 'Class Name','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                 {!! Form::label('description','Class Description: ', ['class' => 'control-label']) !!}
-                {!! Form::textarea('description',$class->description, ['class' => 'form-control','rows' => '9']) !!}
+                {!! Form::textarea('description',null, ['class' => 'form-control','rows' => '9']) !!}
                 </div>  
                  <div class="form-group">
                  {!! Form::label('sessions','Class # of Sessions: ', ['class' => 'control-label']) !!}
-                <input type="number" value= "{{ $class->numberofsessions }}" name="sessions" placeholder="Number of sessions" class="form-control">
+                <input type="number" name="sessions" placeholder="Number of sessions" class="form-control">
                 </div>  
                
                 <div class="form-group">   
@@ -31,17 +31,15 @@
                         {!! Form::label('date','Date: ', []) !!}
                         <div class="input-group">
                         <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-                        <input type="text"  class="form-control datepicker" name="date" required>
+                        <input type="text" class="form-control datepicker" name="date" required>
                         </div>
-
                 </div>                                     
                 </div>
             </div>
          </div>
                 <div class="panel panel-footer">
-                    {!! Form::submit('Add Class', ['Class' => 'btn btn-block btn-lg btn-success']) !!}
+                    {!! Form::submit('Request Class', ['Class' => 'btn btn-block btn-lg btn-success']) !!}
                 </div>
-                {!! Form::hidden('_method','PUT') !!}
                 {!! Form::close() !!}
 
         </div>

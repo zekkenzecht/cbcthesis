@@ -12,7 +12,7 @@
             <div class="panel panel-success">
                 <div class="panel panel-heading">Edit a class</div>
             <div class="panel-body">
-                {!! Form::open(['action' => ['ClassesController@update',$class->id],'method'=>'POST']) !!}
+                {!! Form::open(['action' => ['ClassesRequestController@update',$class->id],'method'=>'POST']) !!}
                 <div class="form-group">
                 {!! Form::label('name','Class Name:', ['class' => 'col-md-4 control-label']) !!}
                 {!! Form::text('name',$class->classname, ['placeholder' => 'Class Name','class' => 'form-control']) !!}
