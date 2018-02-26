@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Assimilation;
 use App\Enrollment;
+use DB;
 class EnrollmentController extends Controller
 {
     /**
@@ -18,10 +19,15 @@ class EnrollmentController extends Controller
         $user = User::where('status','=','active')->get();
         $enrollModal = User::all();
         $assimilation = Assimilation::all();
+       $result = DB::select(DB::raw('SELECT *
+FROM assimilations as assim INNER JOIN Enrollments as Enr
+ON assim.id = Enr.assimilation_id
+INNER JOIN users as us ON us.id = enr.user_id'));
         return view('enrollment.index')
-        ->with('user',$user)
-        ->with('assimilation',$assimilation)
-        ->with('enrollModal',$enrollModal);
+         ->with('user',$user)
+         ->with('assimilation',$assimilation)
+         ->with('enrollModal',$enrollModal)
+         ->with('result',$result);
     }
 
     /**
@@ -42,7 +48,10 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request,$id)
     {
-
+         $idass = $request->assimilation;
+         DB::table('enrollments')->where('user_id', '=', $id)->delete();
+        DB::insert('insert into enrollments (user_id, assimilation_id) values (?, ?)', [$id, $idass]);
+        return redirect()->back();
     }
 
     /**
@@ -76,11 +85,7 @@ class EnrollmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $enrollment = new Enrollment;
-        $enrollment->user_id = $id;
-        $enrollment->assimilation_id = $request->assimilation;
-        $enrollment->save();
-        return redirect()->back();
+        
     }
 
     /**

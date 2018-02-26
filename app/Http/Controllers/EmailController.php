@@ -12,7 +12,6 @@ class EmailController extends Controller
     }
 
     public function send(Request $request){
-    dd($request);
     $mailto = explode(',',$request->emailto);
       Mail::raw($request->content, function ($message) use ($mailto,$request) {
         foreach ($mailto as $key => $value) {

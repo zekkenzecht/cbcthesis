@@ -11,37 +11,77 @@
 |
 */
 Route::get('/dashboard','PagesController@dashboard');
+
+Route::get('/editprofile/{id}','User\\ProfileController@edit');
+
+Route::put('/editprofile/{id}/update','User\\ProfileController@update');
+
 Route::get('/',function(){
+	
 	return redirect('/home');
+
 });
 
 Route::post('/registration','User\\RegisterController@store')->name('register');
 //--Route for User management--//
 Route::middleware(['role:super-admin'])->group(function () {
+	
  	 Route::prefix('admin')->group(function () {
+
 		Route::resource('/roles','User\\RoleController');
+		
 		Route::resource('/users','User\\UserController');
+		
 		Route::resource('/permissions','User\\PermissionController');
+		
 		Route::post('/users/bulkchange','User\\UserController@bulkChange');
+		
 		Route::get('/users/stat/{id}','User\\UserController@destroy');
+		
 		Route::get('/roles/del/{id}','User\\RoleController@destroy');
+		
 		Route::post("/roles/bulkdelete",'User\\RoleController@bulkDelete')->name('bulk');
+		
 		Route::get("/permissions/del/{id}",'User\\PermissionController@destroy');
+		
 		Route::post("/permissions/bulkDelete",'User\\PermissionController@bulkDelete');
-		Route::resource('/devotions','DevotionController');
+		
+		Route::resource('/devotions','DevotionController', ['except' => ['show']]);
+		
 		Route::get('/devotions/{id}/del','DevotionController@destroy');
+		
 		Route::post('/devotions/buklDelete','DevotionController@bulkDelete');
+		
 		Route::resource('/announcements','AnnouncementController');
+		
 		Route::post('/announcement/bulkdelete','AnnouncementController@bulkDelete');
+		
 		Route::get('/email/create','EmailController@create');
+		
 		Route::post('/sendemail','EmailController@send');
+		
 		Route::resource('/branches','BranchesController');
+		
 		Route::post('/branches/bulkdelete','BranchesController@bulkDelete');
+		
 		Route::get('/branches/{id}/del','BranchesController@destroy');
+		
 		Route::resource('classes','ClassesController');
+		
 		Route::post('/classes/bulkdelete','ClassesController@bulkDelete');
+		
 		Route::get('/classes/{id}/del','ClassesController@destroy');
+		
+
+		Route::resource('files','FileController');
+		
+		Route::post('/files/bulkdelete','FileController@bulkDelete');
+		
+		Route::get('/files/{id}/download','FileController@download');
+		
+		Route::get('/files/{id}/del','FileController@destroy');
 });
+
 });
 //--End--//
 
@@ -80,8 +120,12 @@ Route::middleware(['role:super-admin'])->group(function () {
 		//--Route for Media Management--//
 		Route::resource('/media','MediaController');
 		//--End--//
+
 		Route::resource('/enrollment','EnrollmentController');
+		Route::post('/enrollment/{id}/user','EnrollmentController@store');	
 		Route::post('/enrollment/bulkenroll','EnrollmentController@bulkEnroll');
+		Route::get('/classes/{id}/approve','ClassesRequestController@approve');
+		Route::get('/classes/{id}/declined','ClassesRequestController@deny');
 });
 });
 

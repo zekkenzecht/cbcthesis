@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('front/css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="{{ asset('front/css/style.css') }}" rel="stylesheet" type="text/css">
-
 </head>
 <body>
 <div class="container-fluid bg">

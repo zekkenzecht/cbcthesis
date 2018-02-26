@@ -20,11 +20,11 @@
                     <tr><th> Email </th> <td> {{ $enrollModal->email }} </td></tr>
                      <tr><th> Select Class </th> 
                       <td> 
-                        {!! Form::open(['action' => ['EnrollmentController@update',$enrollModal->id],'method' => 'PUT']) !!}
+                        {!! Form::open(['action' => ['EnrollmentController@store',$enrollModal->id],'method' => 'POST']) !!}
                         <select name="assimilation">
-                          <option value="NONE">NONE</option>
+                          <option value="0">NONE</option>
                          @foreach ($assimilation as $assimilations)
-                           <option value="{{ $assimilations->id }}">{{ $assimilations->name }}</option>
+                           <option value="{{ $assimilations->id }}">{{ $assimilations->assimilation_name }}</option>
                          @endforeach
                         </select>
                       </td>
@@ -34,7 +34,6 @@
                 </tbody>
             </table>
             {!! Form::submit('Enroll', ['class' => 'btn btn-block btn-success']) !!}
-            {!! Form::hidden('_METHOD','PUT') !!}
             {!! Form::close() !!}
         </div>     
 </div>

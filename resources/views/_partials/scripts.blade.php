@@ -13,12 +13,10 @@
 <!-- START THIS PAGE PLUGINS-->        
 <script type='text/javascript' src='{{ asset('backend/js/plugins/icheck/icheck.min.js') }}'></script>        
 <script type="text/javascript" src="{{ asset('backend/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') }}"></script>
-<script type='text/javascript' src='{{ asset('backend/js/plugins/bootstrap/bootstrap-datepicker.js') }}'></script>
 <!-- END THIS PAGE PLUGINS-->        
 <!-- START TEMPLATE -->
 <script type="text/javascript" src="{{ asset('backend/js/plugins.js') }}"></script>        
 <script type="text/javascript" src="{{ asset('backend/js/actions.js') }}"></script>
 
-  <script type="text/javascript" src="{{ asset('backend/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') }}"></script>
 <!-- END TEMPLATE -->
 <!-- END SCRIPTS -->         

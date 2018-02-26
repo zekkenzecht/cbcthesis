@@ -16,6 +16,7 @@ class DevotionController extends Controller
     public function index()
     {
         $devotion = Devotion::all();
+
         return view('devotion.index')->with('devotion',$devotion);
     }
 
@@ -27,19 +28,30 @@ class DevotionController extends Controller
     public function create()
     {
         $devotions = [];
+
         $data = Devotion::all();
+
         if($data->count()) {
+
             foreach ($data as $key => $value) {
+
                 $devotions[] = Calendar::event(
+
                     $value->topic,
+
                     true,
+
                     new \DateTime($value->date),
+
                     new \DateTime($value->date.' +1 day'),
+
                     null,
                     // Add color and link on event
                     [
                         'color' => 'blue',
+
                         'url' => "/admin/devotions/$value->id/edit",
+
                     ]
                 );
             }
@@ -57,11 +69,49 @@ class DevotionController extends Controller
     public function store(Request $request)
     {
         $devotion = new Devotion;
+
+        $this->validate($request,[
+
+            'topic' => 'required|min:5|max:40',
+
+            'passage' => 'required|min:5|max:70',
+
+            'content' => 'required|min:20|max:4096',
+
+            'date' => 'required'
+
+        ]);
+
+        $devSet = Devotion::where('date','=',$request->date)->get();
+
+        if ($devSet->count() == 0) {
+
         $devotion->topic = $request->topic;
+
         $devotion->passage = $request->passage;
+
         $devotion->content = $request->content;
+
         $devotion->date = $request->date;
+        
         $devotion->save();
+
+        $request->session()->flash('message','You successfully added a devotion !');
+
+        $request->session()->flash('messages-type','success');
+
+        return redirect()->back();
+
+        } else{
+
+       $request->session()->flash('message','The date you have entered is already taken! Please Select a new one');
+
+        $request->session()->flash('messages-type','danger');
+
+        return redirect('/admin/devotions/create');
+        }
+
+      
     }
 
     /**
@@ -115,13 +165,38 @@ class DevotionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $devotion = Devotion::findOrFail($id);
+         $devotion = Devotion::findOrFail($id);
+
+        $this->validate($request,[
+
+            'topic' => 'required|min:5|max:40',
+
+            'passage' => 'required|min:5|max:70',
+
+            'content' => 'required|min:20|max:4096',
+
+            'date' => 'required'
+
+        ]);
+
         $devotion->topic = $request->topic;
+
         $devotion->passage = $request->passage;
+
         $devotion->content = $request->content;
+
         $devotion->date = $request->date;
+        
         $devotion->save();
+
+        $request->session()->flash('message','You successfully edited devotion '.$devotion->topic.'!');
+
+        $request->session()->flash('messages-type','success');
+
         return redirect()->back();
+
+     
+      
     }
 
     /**
@@ -130,10 +205,16 @@ class DevotionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         $devotion = Devotion::findOrfail($id);
+
+    $request->session()->flash('message',"You have successfully deleted devotion ".$devotion->topic.' !');
+
         $devotion->delete();
+
+        return redirect()->back();
+
     }
 
     public function bulkDelete(Request $request)
@@ -141,6 +222,8 @@ class DevotionController extends Controller
         foreach ($request->input('devotionid') as $key => $value) {
                 DB::table('devotions')->where('id', '=', $value)->delete();
             }
+        $request->session()->flash('message',"You have successfully deleted all selected devotions !");
+
             return redirect()->back();
 
     }

@@ -17,8 +17,19 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        $classes = Classes::where('status','=','approved');
-        return view('classes.index')->with('classes',$classes);
+        $classes = Classes::where('status','=','approved')->get();
+
+        $declined = Classes::where('status','=','declined')->get();
+
+        $crequest = Classes::where('status','=','for-approval')->get();
+
+        return view('classes.index')
+
+        ->with('classes',$classes)
+
+        ->with('declined',$declined)
+
+        ->with('crequest',$crequest);
     }
 
     /**
@@ -58,6 +69,12 @@ class ClassesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'date'=>'required',
+            'name'=>'required|min:5|max:255',
+            'description'=>'required|min:5|max:4096',
+            'sessions'=>'required'
+        ]);
        try {
         DB::beginTransaction();
          $classes = new Classes;
@@ -86,6 +103,7 @@ class ClassesController extends Controller
             ClassSchedules::create($schedule);
             DB::commit();
           }
+           return redirect()->back();
            
        } catch (MySQLException $e) {
            DB::rollBack();
@@ -168,6 +186,7 @@ class ClassesController extends Controller
             );
             ClassSchedules::create($schedule);
           }
+           return redirect()->back();
     }
 
     /**

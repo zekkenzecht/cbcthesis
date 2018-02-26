@@ -86,8 +86,9 @@ class ClassesRequestController extends Controller
             );
             ClassSchedules::create($schedule);
             DB::commit();
-          }
            
+          }
+            return redirect()->back();
        } catch (MySQLException $e) {
            DB::rollBack();
        }
@@ -167,6 +168,7 @@ class ClassesRequestController extends Controller
             );
             ClassSchedules::create($schedule);
           }
+           return redirect()->back();
     }
 
     /**
@@ -186,5 +188,20 @@ class ClassesRequestController extends Controller
     {
 
 
+    }
+
+    public function approve($id)
+    {
+        $classes = Classes::findOrFail($id);
+        $classes->status = 'approved';
+        $classes->save();
+        return redirect()->back();
+    }
+    public function deny($id)
+    {
+        $classes = Classes::findOrFail($id);
+        $classes->status = 'declined';
+        $classes->save();
+        return redirect()->back();
     }
 }

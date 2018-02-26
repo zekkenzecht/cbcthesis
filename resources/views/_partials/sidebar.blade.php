@@ -16,16 +16,16 @@
                 </div>
                 <div class="profile-data">
                     <div class="profile-data-name">{{ Auth::user()->name }}</div>
-                    <div class="profile-data-title">Jr. Web Developer</div>
+                    <div class="profile-data-title">{{ Auth::user()->email }}</div>
                 </div>
                 <div class="profile-controls">
-                    <a href="pages-profile.html" class="profile-control-left"><span class="fa fa-info"></span></a>
-                    <a href="pages-messages.html" class="profile-control-right"><span class="fa fa-envelope"></span></a>
+                    <a href="/editprofile/{{ Auth::id() }}" class="profile-control-left"><span class="fa fa-info"></span></a>
+                    <a href="#" class="profile-control-right"><span class="fa fa-envelope"></span></a>
                 </div>
             </div>                                                                        
 </li>
 <li class="xn-title">Menu</li>
-<li class="active">
+<li>
 <a href="index.html"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>                        
 </li>     
       

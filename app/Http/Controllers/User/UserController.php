@@ -50,7 +50,7 @@ class UserController extends Controller
         if($request->hasFile('avatar')){
 
         $image = $request->file('avatar');
-        $fileName = time()."_".$image->getClientOriginalName();
+        $fileName = uniqid().time()."_".$image->getClientOriginalName();
         $path = 'dist/users/';
         $image->move(public_path($path),$fileName);
         $user->avatar = $path.$fileName;

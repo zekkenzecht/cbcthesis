@@ -10,8 +10,8 @@ class PagesController extends Controller
     public function dashboard()
     	{
     	if (Auth::check() == true) {
-            $Assimilation = Assimilation::all();
-    	return view('admin.dashboard');
+        $assimilation = Assimilation::all();
+    	return view('admin.dashboard')->with('assimilation',$assimilation);
     	}
     	else
     	{

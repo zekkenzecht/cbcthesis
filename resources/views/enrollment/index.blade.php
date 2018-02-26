@@ -33,18 +33,21 @@
     <th>Avatar</th>
     <th>Name</th>
     <th>Email</th>
+    <th>Class Enrolled</th>
     <th>Action</th>
 </tr>
 </thead>
 <tbody>
-@foreach ($user as $user)
+
+@foreach ($result as $result)
 <tr>
-    <td>{!! Form::checkbox('userid[]',$user->id,'', ['class' => 'sub_chk']) !!}</td>
-    <td><img src="{{ asset("$user->avatar") }}" height="75px" width="75px"></td>
-    <td>{{ $user->name  }}</td>
-    <td>{{ $user->email }}</td>
+    <td>{!! Form::checkbox('userid[]',$result->id,'', ['class' => 'sub_chk']) !!}</td>
+    <td><img src="{{ asset("$result->avatar") }}" height="75px" width="75px"></td>
+    <td>{{ $result->name  }}</td>
+    <td>{{ $result->email }}</td>
+    <td>{{ $result->assimilation_name }}</td>
     <td>
-        {!! Form::button('Enroll', ['class' => 'btn btn-info btn-block','data-toggle' => 'modal' ,'data-target' => "#$user->id"]) !!}
+        {!! Form::button('Enroll', ['class' => 'btn btn-info btn-block','data-toggle' => 'modal' ,'data-target' => "#$result->id"]) !!}
     </td>
 </tr>
 @endforeach

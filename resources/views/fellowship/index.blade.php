@@ -147,12 +147,7 @@
 </div>
 </div>
 </section>
-  {{-- <!-- START DEFAULT DATATABLE -->
 
-              <!-- END DEFAULT DATATABLE -->
-@foreach ($userModal as $userModal)
-@include('_partials.usermodal')
-@endforeach --}}
 
 @endsection
 @section('scripts')
