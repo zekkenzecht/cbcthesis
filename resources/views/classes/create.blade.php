@@ -5,7 +5,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
 @endsection
-@section('content')
 @section('breadcrumbs')
 <section class="content-header">
 <ol class="breadcrumb">
@@ -15,6 +14,24 @@
 </ol>
 </section>
 @endsection
+@section('content')
+
+<section class="col-md-11">
+@if (Session::has('message'))
+
+ <div class="alert alert-success" role="alert">
+
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;
+
+    </span><span class="sr-only">Close</span></button>
+
+    <strong>{{ Session::get('message') }}</strong>
+
+</div>
+
+@endif
+</section>
+
 <div class="container">
     <div class="row">
         <div class="col-md-4">
@@ -28,21 +45,32 @@
                 </div>
                 <div class="form-group">
                 {!! Form::label('description','Class Description: ', ['class' => 'control-label']) !!}
-                {!! Form::textarea('description',null, ['class' => 'form-control','rows' => '9']) !!}
+                {!! Form::textarea('description',null, ['class' => 'form-control','rows' => '5']) !!}
                 </div>  
                  <div class="form-group">
                  {!! Form::label('sessions','Class # of Sessions: ', ['class' => 'control-label']) !!}
-                <input type="number" name="sessions" placeholder="Number of sessions" class="form-control">
+                <input type="number" name="sessions" placeholder="Number of sessions" id="sessions" class="form-control">
                 </div>  
                
                 <div class="form-group">   
                 <div class="row">
-                        {!! Form::label('date','Date: ', []) !!}
-                    
-                        <input type="text" class="form-control datepicker" name="date" required>
-                        
+                    <div class="col-md-6">
+                        {!! Form::label('date','Start Date: ', []) !!}
+                        <input type="text" id="dt1" class="form-control datepicker" name="date">
+                    </div>
+                    <div class="col-md-6">
+                        {!! Form::label('enddate','End Date: ', []) !!}
+                        <input type="text" id="dt2" class="form-control datepicker" name="enddate">
+                    </div>
+                          
                 </div>                                     
                 </div>
+
+             <div class="form-group">
+                <label>Time Schedule: </label>   
+                 <input type="text" class="form-control timepicker" name='time'/>
+            </div>
+
             </div>
          </div>
                 <div class="panel panel-footer">
@@ -66,7 +94,8 @@
 @section('scripts')
 <script type='text/javascript' src="{{ asset('/backend/js/plugins/jquery-validation/jquery.validate.js') }}">
 </script>
-<script type='text/javascript' src='{{ asset('backend/js/plugins/bootstrap/bootstrap-datepicker.js') }}'></script>
+<script type='text/javascript' src='{{ asset('/backend/js/plugins/bootstrap/bootstrap-datepicker.js') }}'></script>
+<script type="text/javascript" src="{{ asset('/backend/js/plugins/bootstrap/bootstrap-timepicker.min.js') }}"></script>
 <script type="text/javascript">
     var jvalidate = $("#jvalidate").validate({
     ignore: [],
@@ -91,9 +120,26 @@
             date: {
                     required: true,
             },
+
+            enddate: {
+                    required: true,
+            },
             
         }                                        
     });       
 
+</script>
+<script type="text/javascript">
+
+// continue with the calculations
+$("#sessions").keyup(function () {
+           
+           var someDate = new Date($('#dt1').val());
+           var numberOfDaysToAdd = parseInt($(this).val());
+           someDate.setDate(someDate.getDate() + parseInt(numberOfDaysToAdd * 7));
+           var date = someDate.getFullYear() + '-' + someDate.getMonth() + '-' + someDate.getDate();
+           $('#dt2').val(date);
+
+       });
 </script>
 @endsection

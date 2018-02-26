@@ -20,6 +20,8 @@ class CreateClasses extends Migration
             $table->integer('numberofsessions');
             $table->integer('user_id');
             $table->string('status');
+            $table->datetime('startdate');
+            $table->datetime('end_date');
             $table->timestamps();
             
         });

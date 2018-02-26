@@ -68,10 +68,11 @@ Route::middleware(['role:super-admin'])->group(function () {
 		
 		Route::resource('classes','ClassesController');
 		
-		Route::post('/classes/bulkdelete','ClassesController@bulkDelete');
+		Route::post('/classes/bulkdecline','ClassesController@bulkDecline');
 		
 		Route::get('/classes/{id}/del','ClassesController@destroy');
 		
+
 
 		Route::resource('files','FileController');
 		

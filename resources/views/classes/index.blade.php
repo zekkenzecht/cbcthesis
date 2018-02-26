@@ -10,9 +10,27 @@
 @section('content')
 <!-- Content Header (Page header) -->
 <!-- Main content -->
+<section class="col-md-11">
+    @if (Session::has('message'))
+
+     <div class="alert alert-success" role="alert">
+
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;
+
+        </span><span class="sr-only">Close</span></button>
+
+        <strong>{{ Session::get('message') }}</strong>
+
+    </div>
+
+@endif
+</section>
+
 <section class="content">
+
+    
 <div class="col-md-11">
-{!! Form::open(['action' => 'FellowshipController@bulkDecline','method' => 'post']) !!}
+{!! Form::open(['action' => 'ClassesController@bulkDecline','method' => 'post']) !!}
 <div class="panel panel-default tabs">
 <ul class="nav nav-tabs" role="tablist">
 <li><a href="#tab-first" role="tab" data-toggle="tab">Approved Request</a></li>
@@ -24,9 +42,9 @@
 <div class="panel panel-success">
 <div class="panel-heading">
     <h1><span class="glyphicon glyphicon-book"></span>&nbsp;Classes</h1>
-<a href="/admin/classes/create" class="btn btn-lg btn-success"> Add New Class</a>
-{!! Form::button('Decline Selected', ['class' => 'btn btn-lg btn-danger']) !!}
-<span class="fa-fa"></span>
+<a href="/admin/classes/create" class="btn btn-lg btn-success"><span class="fa fa-plus"></span>Add New Class</a>
+{!! Form::button('<span class="fa fa-trash-o"></span>Decline Selected', ['class' => 'btn btn-lg btn-danger','data-toggle'=>'modal','data-target'=>'#confirmblkdec','id'=>'decline']) !!}
+@include('classes._partials.confirmbulkdel')
 </div>
 <div class="panel-body">
 <table class="table table-striped datatable">
@@ -49,9 +67,10 @@
     <td>{{ $class->numberofsessions }}</td>
     <td>{{ ucwords($class->status) }}</td>
     <td>
-        {!! Form::button('View', ['class' => 'btn btn-info','data-toggle' => 'modal' ,'data-target' => "#$class->id"]) !!}
-      <a href="/admin/classes/{{$class->id}}/edit" class="btn btn-primary">Edit</a>
-      <a href="/admin/classes/{{ $class->id }}/del" class="btn btn-danger" id="cfirmdel">Delete</a>
+        {!! Form::button('<span class="fa fa-check"></span>View', ['class' => 'btn btn-info','data-toggle' => 'modal' ,'data-target' => "#$class->id"]) !!}
+      <a href="/admin/classes/{{$class->id}}/edit" class="btn btn-primary"><span class="fa fa-pencil"></span>Edit</a>
+      {!! Form::button('<span class="fa fa-trash-o"></span>Decline', ['class' => 'btn btn-danger','data-toggle'=>'modal','data-target'=>'#confirmdel']) !!}
+      @include('classes._partials.confirmdel');
     </td>
 </tr>
 @endforeach
@@ -93,6 +112,7 @@
         {!! Form::button('View', ['class' => 'btn btn-info','data-toggle' => 'modal' ,'data-target' => "#$declined->id"]) !!}
       <a href="/admin/classes/{{$declined->id}}/edit" class="btn btn-primary">Edit</a>
       <a href="/admin/classes/{{ $declined->id }}/del" class="btn btn-danger" id="cfirmdel">Delete</a>
+      
     </td>
 </tr>
 @endforeach
@@ -156,8 +176,9 @@
 @section('scripts')
 
 @include('_partials.datatables')
-
+<script type="text/javascript" src="{{ asset('backend/custom/sweetalert2.all.min.js') }}"></script>
 <script type="text/javascript">
+
 jQuery('#check_all').on('click', function(e) {
 if($(this).is(':checked',true))
 {
@@ -188,18 +209,28 @@ else
 $(".sub_chk3").prop('checked',false);
 }
 });
-</script>
-<script type="text/javascript">
-    $(document).ready(function() {
 
-    $('#blkdelete').click(function() {
+jQuery('.sub_chk').on('click', function(e) {
+if($(this).is(':checked',true))
+{
+$("#check_all").prop('checked', false);
+}
+else
+{
+$("#check_all").prop('checked',false);
+}
+});
+
+$(document).ready(function() {
+
+    $('#decline').click(function() {
    
       checked = $("input[class=sub_chk]:checked").length;
       if(!checked) {
         swal({
         type: 'error',
         title: 'Oops...',
-        text: 'Please Check atleast one devotion to delete!',
+        text: 'Please Check atleast one class to delete!',
       });
         return false;
       } 

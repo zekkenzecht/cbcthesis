@@ -40,11 +40,13 @@ class ClassesController extends Controller
     public function create()
     {
         $classes = [];
-        $data = ClassSchedules::all();
-        if($data->count()) {
+        $data = DB::select(DB::raw('SELECT *
+        FROM classes as cl INNER JOIN classschedules as cls
+        ON cl.id = cls.class_id'));
+    
             foreach ($data as $key => $value) {
                 $classes[] = Calendar::event(
-                    $value->schedule,
+                    $value->classname,
                     true,
                     new \DateTime($value->schedule),
                     new \DateTime($value->schedule.' +1 day'),
@@ -52,11 +54,11 @@ class ClassesController extends Controller
                     // Add color and link on event
                     [
                         'color' => 'blue',
-                        'url' => "/admin/classes/$value->id/edit",
+                        'url' => "/admin/classes/$value->class_id/edit",
                     ]
                 );
             }
-        }
+    
         $calendar = Calendar::addEvents($classes);
         return view('classes.create', compact('calendar'));
     }
@@ -103,6 +105,7 @@ class ClassesController extends Controller
             ClassSchedules::create($schedule);
             DB::commit();
           }
+          $request->session()->flash('message','You have successfully added a post !');
            return redirect()->back();
            
        } catch (MySQLException $e) {
@@ -133,11 +136,13 @@ class ClassesController extends Controller
     {
          $classes = [];
          $class = Classes::findOrFail($id);
-        $data = ClassSchedules::all();
-        if($data->count()) {
+        $data = DB::select(DB::raw('SELECT *
+        FROM classes as cl INNER JOIN classschedules as cls
+        ON cl.id = cls.class_id'));
+        dd($data);
             foreach ($data as $key => $value) {
                 $classes[] = Calendar::event(
-                    $value->schedule,
+                    $class->classname,
                     true,
                     new \DateTime($value->schedule),
                     new \DateTime($value->schedule.' +1 day'),
@@ -145,11 +150,11 @@ class ClassesController extends Controller
                     // Add color and link on event
                     [
                         'color' => 'blue',
-                        'url' => "/admin/classes/$value->id/edit",
+                        'url' => "/admin/classes/$value->class_id/edit",
                     ]
                 );
             }
-        }
+        
         $calendar = Calendar::addEvents($classes);
         return view('classes.edit', compact('calendar','class'));
     }
@@ -195,14 +200,26 @@ class ClassesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         $class = Classes::findOrFail($id);
-        $class->delete();
-        DB::table('classschedules')->where('class_id','=',$id)->delete();
+        $request->session()->flash('message','You have successfully declined class'.$class->classname. ' !');
+        $class->status = 'declined';
+        $class->save();
+        return redirect()->back();
     }
 
-    public function bulkDelete(){
+    public function bulkDecline(Request $request){
+        foreach ($request->input('classid') as $key => $value) {
+            
+        $class = Classes::findOrFail($value);
+        $class->status = 'declined';
+        $class->save();
 
+        }
+
+        $request->session()->flash('message','You Have Successfully declined all checked !');
+
+        return redirect()->back();
     }
 }

@@ -1,4 +1,4 @@
-<div class="modal fade" id="confirmblkdec" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="confirmdel" tabindex="-1" role="dialog" aria-hidden="true">
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -6,11 +6,11 @@
             <h4 class="modal-title">Confirmation</h4>
         </div>
         <div class="modal-body">
-              <h4>Are you sure you want to delete all checked ?</h4>
+              <h4>Are you sure you want to decline {{ $class->classname }} ?</h4>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
-              {!! Form::button('<span class="fa fa-trash-o"></span>Decline Selected', ['type'=>'submit','class' => 'btn btn-lg btn-danger']) !!}   
+              <a href="/admin/classes/{{ $class->id }}/del" class="btn btn-danger" id="cfirmdel"><span class="glyphicon glyphicon-trash"></span>Delete</a>  
         </div>
     </div>
 </div>
