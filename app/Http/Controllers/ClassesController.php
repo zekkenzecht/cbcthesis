@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use Calendar;
 use App\Classes;
 use App\ClassSchedules;
@@ -23,13 +24,16 @@ class ClassesController extends Controller
 
         $crequest = Classes::where('status','=','for-approval')->get();
 
+        $all = Classes::all();
         return view('classes.index')
 
         ->with('classes',$classes)
 
         ->with('declined',$declined)
 
-        ->with('crequest',$crequest);
+        ->with('crequest',$crequest)
+
+        ->with('all',$all);
     }
 
     /**
@@ -40,9 +44,9 @@ class ClassesController extends Controller
     public function create()
     {
         $classes = [];
-        $data = DB::select(DB::raw('SELECT *
+        $data = DB::select(DB::raw("SELECT *
         FROM classes as cl INNER JOIN classschedules as cls
-        ON cl.id = cls.class_id'));
+        ON cl.id = cls.class_id WHERE cl.status = 'approved'"));
     
             foreach ($data as $key => $value) {
                 $classes[] = Calendar::event(
@@ -75,17 +79,23 @@ class ClassesController extends Controller
             'date'=>'required',
             'name'=>'required|min:5|max:255',
             'description'=>'required|min:5|max:4096',
-            'sessions'=>'required'
+            'sessions'=>'required',
+            'date' => 'required',
+            'enddate' => 'required',
+            'time' => 'required'
         ]);
-       try {
-        DB::beginTransaction();
-         $classes = new Classes;
+
+        $classes = new Classes;
         $date = date($request->date);
         $classes->classname = $request->name;
         $classes->description = $request->description;
         $classes->numberofsessions = $request->sessions;
         $classes->status = 'approved';
         $classes->user_id = Auth::id();
+        $startdate = date_create($request->date.' '.$request->time);
+        $enddate = date_create($request->enddate.' '.$request->time);
+        $classes->startdate = date_format($startdate,'Y-m-d H:i:s');
+        $classes->end_date = date_format($enddate,'Y-m-d H:i:s');
         $classes->save();
         $lastId = DB::getPdo()->lastInsertId();
          $firstSched = array(
@@ -98,19 +108,16 @@ class ClassesController extends Controller
          
             $sched = strtotime("+7 day",strtotime($date));
             $date = date('Y-m-d',$sched);
+            $schedules = date_create($date.''.$request->time);
             $schedule = array(
             'class_id' => $lastId,
-            'schedule' => $date,
+            'schedule' => date_format($schedules,'Y-m-d H:i:s')
             );
             ClassSchedules::create($schedule);
             DB::commit();
           }
           $request->session()->flash('message','You have successfully added a post !');
            return redirect()->back();
-           
-       } catch (MySQLException $e) {
-           DB::rollBack();
-       }
 
        
     }
@@ -139,7 +146,6 @@ class ClassesController extends Controller
         $data = DB::select(DB::raw('SELECT *
         FROM classes as cl INNER JOIN classschedules as cls
         ON cl.id = cls.class_id'));
-        dd($data);
             foreach ($data as $key => $value) {
                 $classes[] = Calendar::event(
                     $class->classname,
@@ -210,16 +216,70 @@ class ClassesController extends Controller
     }
 
     public function bulkDecline(Request $request){
+       switch ($request->change) {
+           case 'approve':
         foreach ($request->input('classid') as $key => $value) {
-            
+        $class = Classes::findOrFail($value);
+        $class->status = 'approved';
+        $class->save();
+
+        }
+               break;
+
+           case 'decline':
+        foreach ($request->input('classid') as $key => $value) {
         $class = Classes::findOrFail($value);
         $class->status = 'declined';
         $class->save();
 
         }
+               break;
+
+       }
+       
 
         $request->session()->flash('message','You Have Successfully declined all checked !');
 
         return redirect()->back();
+    }
+
+    public function bulkApprove(Request $request){
+
+        foreach ($request->input('classid') as $key => $value) {
+        $class = Classes::findOrFail($value);
+        $class->status = 'approved';
+        $class->save();
+
+        }
+
+        $request->session()->flash('message','You Have Successfully Approved all checked !');
+
+        return redirect()->back();
+    }
+
+    public function calendar(){
+
+        $classes = [];
+        $data = DB::select(DB::raw("SELECT *
+        FROM classes as cl INNER JOIN classschedules as cls
+        ON cl.id = cls.class_id WHERE cl.status = 'approved'"));
+    
+            foreach ($data as $key => $value) {
+                $classes[] = Calendar::event(
+                    $value->classname,
+                    true,
+                    new \DateTime($value->schedule),
+                    new \DateTime($value->schedule),
+                    null,
+                    // Add color and link on event
+                    [
+                        'color' => 'blue',
+                    ]
+                );
+            }
+    
+        $calendar = Calendar::addEvents($classes);
+        return view('classes.calendar', compact('calendar'));
+    
     }
 }

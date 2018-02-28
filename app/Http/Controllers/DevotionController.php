@@ -227,4 +227,37 @@ class DevotionController extends Controller
             return redirect()->back();
 
     }
+    public function calendar()
+    {
+        $devotions = [];
+
+        $data = Devotion::all();
+
+        if($data->count()) {
+
+            foreach ($data as $key => $value) {
+
+                $devotions[] = Calendar::event(
+
+                    $value->topic,
+
+                    true,
+
+                    new \DateTime($value->date),
+
+                    new \DateTime($value->date.' +1 day'),
+
+                    null,
+                    // Add color and link on event
+                    [
+                        'color' => 'blue',
+
+                    ]
+                );
+            }
+        }
+        $calendar = Calendar::addEvents($devotions);
+
+        return view('devotion.calendar', compact('calendar'));
+    }
 }

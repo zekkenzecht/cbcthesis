@@ -60,7 +60,7 @@
                     </div>
                     <div class="col-md-6">
                         {!! Form::label('enddate','End Date: ', []) !!}
-                        <input type="text" id="dt2" class="form-control datepicker" name="enddate">
+                        <input type="text" id="dt2" class="form-control" name="enddate" readonly>
                     </div>
                           
                 </div>                                     
@@ -124,6 +124,11 @@
             enddate: {
                     required: true,
             },
+
+            time: {
+                    required: true,
+            },
+
             
         }                                        
     });       
@@ -133,13 +138,19 @@
 
 // continue with the calculations
 $("#sessions").keyup(function () {
-           
            var someDate = new Date($('#dt1').val());
            var numberOfDaysToAdd = parseInt($(this).val());
            someDate.setDate(someDate.getDate() + parseInt(numberOfDaysToAdd * 7));
-           var date = someDate.getFullYear() + '-' + someDate.getMonth() + '-' + someDate.getDate();
+           var date = someDate.getFullYear() + '-' + (someDate.getMonth()+parseInt(1)) + '-' + someDate.getDate();
            $('#dt2').val(date);
-
+       });
+$("#dt1").on('keyup change',function () {
+           var someDate = new Date($('#dt1').val());
+           console.log(someDate);
+           var numberOfDaysToAdd = parseInt($('#sessions').val());
+           someDate.setDate(someDate.getDate() + parseInt(numberOfDaysToAdd * 7));
+           var date = someDate.getFullYear() + '-' + (someDate.getMonth()+parseInt(1)) + '-' + someDate.getDate();
+           $('#dt2').val(date);
        });
 </script>
 @endsection

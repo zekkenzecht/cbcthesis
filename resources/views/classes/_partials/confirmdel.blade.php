@@ -10,7 +10,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
-              <a href="/admin/classes/{{ $class->id }}/del" class="btn btn-danger" id="cfirmdel"><span class="glyphicon glyphicon-trash"></span>Delete</a>  
+              <a href="/admin/classes/{{ $class->id }}/del" class="btn btn-danger" id="cfirmdel"><span class="glyphicon glyphicon-trash"></span>Decline</a>  
         </div>
     </div>
 </div>

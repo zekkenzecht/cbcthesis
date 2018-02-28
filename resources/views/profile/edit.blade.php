@@ -10,9 +10,6 @@
             <div class="panel-heading">
                 <h3 class="panel-title"><strong>Edit Profile</strong>&nbsp;</h3>
             </div>
-            <div class="panel-body">s
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti excepturi temporibus sed animi architecto velit, atque odio, reprehenderit qui iusto labore neque enim tenetur sequi nostrum, ratione natus ab at. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, illum, debitis itaque, adipisci quam a quis exercitationem sit, iusto magnam odit laudantium veniam ipsa sunt necessitatibus aliquam tempora? Voluptatibus, illo.</p>
-            </div>
             <div class="panel-body">                                                                        
                 
                 <div class="row">

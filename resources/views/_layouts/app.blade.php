@@ -8,12 +8,14 @@
 <title>City Bible Church</title>
 
 @yield('calendar')
-
+<link rel="stylesheet" type="text/css" href="{{ asset('/css/customstyle.css') }}">
 @include('_partials.css')
 </head>
 
-<body>
+	
 
+<body>
+	
 <div class="page-container">
 
 @include('_partials.sidebar')
@@ -37,6 +39,7 @@
 </div>
 </div>
 
+<div class="loader"></div>
 
 </body>
 
@@ -50,4 +53,11 @@
 
 @yield('scripts')
 
+<script type="text/javascript">
+
+$(window).load(function(){
+     $('.loader').fadeOut(1000);
+});
+
+</script>
 </html>

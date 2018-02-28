@@ -68,10 +68,10 @@
     <td>{{ date("M j, Y", strtotime("$devotion->date"))  }}</td> 
     <td>
 
-        {!! Form::button('<span class="fa fa-check"></span>View', ['class' => 'btn btn-info','data-toggle' => 'modal' ,'data-target' => "#devotion$devotion->id",'data-backdrop'=>"static", 'data-keyboard'=>"false"]) !!}
+        {!! Form::button('<span class="fa fa-search"></span>View', ['class' => 'btn btn-info','data-toggle' => 'modal' ,'data-target' => "#devotion$devotion->id",'data-backdrop'=>"static", 'data-keyboard'=>"false"]) !!}
 
       @include('devotion._partials.modal')
-      <a href="/admin/devotions/{{$devotion->id}}/edit" class="btn btn-primary"><span class="fa fa-pencil"></span><span class="glyphicon glyphicon-trash"></span>Edit</a>
+      <a href="/admin/devotions/{{$devotion->id}}/edit" class="btn btn-primary"><span class="fa fa-pencil"></span>Edit</a>
        <a href="#deldev{{ $devotion->id }}" data-toggle='modal' class="btn btn-danger" data-target="#deldev{{ $devotion->id }}"><span class="glyphicon glyphicon-trash"></span>Delete</a> 
       @include('devotion._partials.confirmdel')
     </td>

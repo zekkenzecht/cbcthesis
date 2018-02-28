@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use App\Events\ClassRequestEvent;
 Route::get('/dashboard','PagesController@dashboard');
 
 Route::get('/editprofile/{id}','User\\ProfileController@edit');
@@ -51,6 +53,8 @@ Route::middleware(['role:super-admin'])->group(function () {
 		Route::get('/devotions/{id}/del','DevotionController@destroy');
 		
 		Route::post('/devotions/buklDelete','DevotionController@bulkDelete');
+
+		Route::get('/devotions/calendar','DevotionController@calendar');
 		
 		Route::resource('/announcements','AnnouncementController');
 		
@@ -66,13 +70,13 @@ Route::middleware(['role:super-admin'])->group(function () {
 		
 		Route::get('/branches/{id}/del','BranchesController@destroy');
 		
-		Route::resource('classes','ClassesController');
+		Route::resource('classes','ClassesController',['except'=>['show']]);
 		
 		Route::post('/classes/bulkdecline','ClassesController@bulkDecline');
 		
 		Route::get('/classes/{id}/del','ClassesController@destroy');
 		
-
+		Route::get('/classes/calendar','ClassesController@calendar');
 
 		Route::resource('files','FileController');
 		
@@ -81,6 +85,10 @@ Route::middleware(['role:super-admin'])->group(function () {
 		Route::get('/files/{id}/download','FileController@download');
 		
 		Route::get('/files/{id}/del','FileController@destroy');
+
+		Route::get('/event/event/event',function(){
+			event(new ClassRequestEvent('how are you'));
+		});
 });
 
 });
@@ -125,6 +133,7 @@ Route::middleware(['role:super-admin'])->group(function () {
 		Route::resource('/enrollment','EnrollmentController');
 		Route::post('/enrollment/{id}/user','EnrollmentController@store');	
 		Route::post('/enrollment/bulkenroll','EnrollmentController@bulkEnroll');
+		Route::post('/classes/blkapprove','ClassesController@bulkApprove');
 		Route::get('/classes/{id}/approve','ClassesRequestController@approve');
 		Route::get('/classes/{id}/declined','ClassesRequestController@deny');
 });

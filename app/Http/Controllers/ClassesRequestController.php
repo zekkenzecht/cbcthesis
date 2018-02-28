@@ -190,18 +190,21 @@ class ClassesRequestController extends Controller
 
     }
 
-    public function approve($id)
+    public function approve(Request $request,$id)
     {
         $classes = Classes::findOrFail($id);
         $classes->status = 'approved';
         $classes->save();
+        $request->session()->flash('message',"You have Successfully approved $classes->classname !");
+
         return redirect()->back();
     }
-    public function deny($id)
+    public function deny(Request $request,$id)
     {
         $classes = Classes::findOrFail($id);
         $classes->status = 'declined';
         $classes->save();
+        $request->session()->flash('message',"You have declined $classes->classname !");
         return redirect()->back();
     }
 }

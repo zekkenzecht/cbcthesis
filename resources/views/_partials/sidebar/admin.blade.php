@@ -1,10 +1,22 @@
 
-<li>
-<a href="/admin/devotions"><span class="fa fa-book"></span><span class="xn-text">Devotion Manager</span></a>
+<li class="xn-openable">
+    <a href="#"><span class="fa fa-book"></span><span class="xn-text">Devotion</span></a>
+    <ul>
+    <li><a href="/admin/devotions"><span class="fa fa-book"></span><span class="xn-text">Devotion Manager</span></a></li>
+    <li><a href="/admin/devotions/calendar"><span class="fa fa-calendar"></span><span class="xn-text">Devotion Calendar</span></a></li>
+    
+    </ul>
 </li>
-<li>
-<a href="/admin/classes"><span class="glyphicon glyphicon-book"></span><span class="xn-text">Classes</span></a>
+
+<li class="xn-openable">
+    <a href="#"><span class="glyphicon glyphicon-book"></span><span class="xn-text">Classes</span></a>
+    <ul>
+    <li><a href="/admin/classes"><span class="glyphicon glyphicon-book"></span>Class Manager</a></li>
+    <li><a href="/admin/classes/calendar"><span class="fa fa-calendar"></span><span class="xn-text">Classes Calendar</span></a></li>
+    
+    </ul>
 </li>
+
 <li>
 <a href="/admin/fellowship"><span class="fa fa-desktop"></span> <span class="xn-text">Fellowship</span></a>
 </li>
