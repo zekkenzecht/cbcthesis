@@ -5,7 +5,8 @@ namespace App\Listeners;
 use App\Events\ClassRequestEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-
+use App\Notifications\ClassRequestNotification;
+use Auth;
 class ClassRequestListener
 {
     /**
@@ -26,6 +27,6 @@ class ClassRequestListener
      */
     public function handle(ClassRequestEvent $event)
     {
-        dd($event);
+           $event->notification->user->notify(new ClassRequestNotification($event->notification,Auth::user()));
     }
 }

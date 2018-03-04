@@ -2,12 +2,14 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="csrf-token" content="{{ Session::token() }}"> 
-
+<link rel="shortcut icon" type="image/png" href=" {{ asset('/dist/favicon.ico') }} "/>
 <title>City Bible Church</title>
-
+	
 @yield('calendar')
+ <link href="{{ asset('/front/assets/css/style.css') }}" rel="stylesheet">
+
 <link rel="stylesheet" type="text/css" href="{{ asset('/css/customstyle.css') }}">
 @include('_partials.css')
 </head>
@@ -24,11 +26,14 @@
 
 @include('_partials.navbar')
 
+
 @yield('breadcrumbs')
 
 <div class="page-content-wrapper">
 
 <div class="container">
+
+
 
 @yield('content')
 
@@ -59,5 +64,13 @@ $(window).load(function(){
      $('.loader').fadeOut(1000);
 });
 
+function markasreadclassreq(notificationCount){
+	if (notificationCount !== 0) {
+		$.get('/markasreadclassreq');
+	}
+	
+}
+
 </script>
+
 </html>

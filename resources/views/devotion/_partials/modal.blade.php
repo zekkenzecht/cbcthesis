@@ -6,7 +6,7 @@
             <h4 class="modal-title">{{ $devotion->topic }}</h4>
         </div>
         <div class="modal-body">
-              <p>{!! wordwrap($devotion->content,145,"<br>/n",true) !!}</p> 
+              <p>{!! wordwrap($devotion->content,145,"<br>",true) !!}</p> 
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>

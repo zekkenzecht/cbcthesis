@@ -28,14 +28,15 @@
 
 <section class="content">
 
-    
 <div class="col-md-11">
 {!! Form::open(['action' => 'ClassesController@bulkDecline','method' => 'post']) !!}
 <div class="panel panel-default tabs">
 <ul class="nav nav-tabs" role="tablist">
-<li><a href="#tab-first" role="tab" data-toggle="tab">Approved Request</a></li>
-<li><a href="#tab-second" role="tab" data-toggle="tab">Declined Request</a></li>
-<li><a href="#tab-third" role="tab" data-toggle="tab">For-approval Request</a></li>
+ 
+<li class="{{ Session::get('active-first') }}"><a href="#tab-first" role="tab" data-toggle="tab">Approved Request</a></li>
+<li class="{{ Session::get('active-second') }}"><a href="#tab-second" role="tab" data-toggle="tab">Declined Request</a></li>
+<li class="{{ Session::get('active-third') }}"><a href="#tab-third" role="tab" data-toggle="tab">For-approval Request</a></li>
+
 </ul>
 <div class="panel-body tab-content">
 <div class="tab-pane active" id="tab-first">
@@ -54,6 +55,7 @@
     <th>Class Name</th>
     <th>Description</th>
     <th>Number of Sessions</th>
+    <th>By</th>
     <th>Action</th>
 </tr>
 </thead>
@@ -64,11 +66,12 @@
     <td>{{ $class->classname }}</td>
     <td>{{str_limit($class->description,20, '...')  }}</td>
     <td>{{ $class->numberofsessions }}</td>
+    <td> {{ $class->user->name }}</td>
     <td>
         {!! Form::button('<span class="fa fa-search"></span>View', ['class' => 'btn btn-info','data-toggle' => 'modal' ,'data-target' => "#$class->id"]) !!}
        
       <a href="/admin/classes/{{$class->id}}/edit" class="btn btn-primary"><span class="fa fa-pencil"></span>Edit</a>
-      {!! Form::button('<span class="fa fa-trash-o"></span>Decline', ['class' => 'btn btn-danger','data-toggle'=>'modal','data-target'=>'#confirmdel']) !!}
+      {!! Form::button('<span class="fa fa-trash-o"></span>Decline', ['class' => 'btn btn-danger','data-toggle'=>'modal','data-target'=>"#confirmdel$class->id"]) !!}
       @include('classes._partials.confirmdel')
     </td>
 </tr>
@@ -96,6 +99,7 @@
     <th>Class Name</th>
     <th>Description</th>
     <th>Number of Sessions</th>
+    <th>By</th>
     <th>Action</th>
 </tr>
 </thead>
@@ -106,11 +110,12 @@
     <td>{{ $declined->classname }}</td>
     <td>{{ str_limit($declined->description,20, '...') }}</td>
     <td>{{ $declined->numberofsessions }}</td>
+    <td>{{ $declined->user->name }}</td>
     <td>
         {!! Form::button('<span class="fa fa-search"></span>View', ['class' => 'btn btn-info','data-toggle' => 'modal' ,'data-target' => "#$declined->id"]) !!}
       <a href="/admin/classes/{{$declined->id}}/edit" class="btn btn-primary"><span class="fa fa-pencil"></span>Edit</a>
-      <a href="/admin/classes/{{ $declined->id }}/approve" class="btn btn-danger" id="cfirmdel"><span class="fa fa-check"></span>Approve</a>
-      
+    {!! Form::button('<span class="fa fa-check"></span>Approve', ['class' => 'btn btn-danger','data-toggle' => 'modal' ,'data-target' => "#confirmapr$declined->id"]) !!} 
+    @include('classes._partials.confirmapr')
     </td>
 </tr>
 @endforeach
@@ -140,7 +145,7 @@
     <th>Class Name</th>
     <th>Description</th>
     <th>Number of Sessions</th>
-    <th>Status</th>
+    <th>By</th>
     <th>Action</th>
 </tr>
 </thead>
@@ -151,12 +156,12 @@
     <td>{{ $crequest->classname }}</td>
     <td>{{ str_limit($crequest->description,20, '...')  }}</td>
     <td>{{ $crequest->numberofsessions }}</td>
-    <td>{{ ucwords($crequest->status) }}</td>
+    <td>{{ $crequest->user->name }}</td>
     <td>
         {!! Form::button('<span class="fa fa-search"></span>View', ['class' => 'btn btn-info','data-toggle' => 'modal' ,'data-target' => "#$crequest->id"]) !!}
-      {!! Form::button('<span class="fa fa-check"></span>Approve', ['class' => 'btn btn-primary','data-toggle'=>'modal','data-target'=>'#singleconfirm']) !!}
+      {!! Form::button('<span class="fa fa-check"></span>Approve', ['class' => 'btn btn-primary','data-toggle'=>'modal','data-target'=>"#singleconfirm$crequest->id"]) !!}
       @include('classes._partials.singleconfirm')
-      {!! Form::button('<span class="fa fa-trash-o"></span>Decline', ['class' => 'btn btn-danger','data-toggle'=>'modal','data-target'=>'#singledecline']) !!}
+      {!! Form::button('<span class="fa fa-trash-o"></span>Decline', ['class' => 'btn btn-danger','data-toggle'=>'modal','data-target'=>"#singledecline$crequest->id"]) !!}
       @include('classes._partials.singledecline')
     </td>
 </tr>

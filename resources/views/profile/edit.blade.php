@@ -84,10 +84,10 @@
                             {!! Form::label('gender','Gender:&nbsp;', ['class' => 'col-md-3 control-label']) !!}
                             <div class="col-md-9">      
                         @if($user->gender == 'Male')
-                         <input type="radio" name='gender' value="male" required checked="true">Male
+                         <input type="radio" name='gender' value="Male" required checked="true">Male
                           <input type="radio"  name='gender' value="female" required>Female 
                         @else
-                          <input type="radio" name='gender' value="male" required >Male
+                          <input type="radio" name='gender' value="Male" required >Male
                           <input type="radio"  name='gender' value="female" required checked="true">Female 
                         @endif                                 
                           

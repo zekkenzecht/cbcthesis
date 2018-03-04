@@ -1,9 +1,9 @@
 <!-- START PAGE SIDEBAR -->
-<div class="page-sidebar">
+<div class="page-sidebar scroll">
     <!-- START X-NAVIGATION -->
     <ul class="x-navigation">
         <li class="xn-logo">
-            <a href="index.html">CBC</a>
+            <a href="index.html" style="font-size: 20px;">City Bible Church</a>
             <a href="#" class="x-navigation-control"></a>
         </li>
         <li class="xn-profile">

@@ -9,6 +9,7 @@ use App\Classes;
 use App\ClassSchedules;
 use DB;
 use Auth;
+use App\Events\ClassRequestEvent;
 class ClassesController extends Controller
 {
     /**
@@ -174,29 +175,48 @@ class ClassesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $classes = Classes::findOrFail($id);
+          $this->validate($request,[
+            'date'=>'required',
+            'name'=>'required|min:5|max:255',
+            'description'=>'required|min:5|max:4096',
+            'sessions'=>'required',
+            'date' => 'required',
+            'enddate' => 'required',
+            'time' => 'required'
+        ]);
+
+        $classes = Classes::findOrfail($id);
+        DB::table('classschedules')->where('class_id','=',$id)->delete();   
         $date = date($request->date);
         $classes->classname = $request->name;
         $classes->description = $request->description;
         $classes->numberofsessions = $request->sessions;
+        $classes->status = 'approved';
+        $classes->user_id = Auth::id();
+        $startdate = date_create($request->date.' '.$request->time);
+        $enddate = date_create($request->enddate.' '.$request->time);
+        $classes->startdate = date_format($startdate,'Y-m-d H:i:s');
+        $classes->end_date = date_format($enddate,'Y-m-d H:i:s');
         $classes->save();
-        DB::table('classschedules')->where('class_id','=',$id)->delete();   
-        $data = array(
+         $firstSched = array(
             'class_id' => $id,
             'schedule' => $date,
             );
-        ClassSchedules::create($data);
-
+            ClassSchedules::create($firstSched);
+   
         for ($i=$request->sessions; $i != 1 ; $i--)   { 
          
             $sched = strtotime("+7 day",strtotime($date));
             $date = date('Y-m-d',$sched);
+            $schedules = date_create($date.''.$request->time);
             $schedule = array(
             'class_id' => $id,
-            'schedule' => $date,
+            'schedule' => date_format($schedules,'Y-m-d H:i:s')
             );
             ClassSchedules::create($schedule);
+            DB::commit();
           }
+          $request->session()->flash('message','You have successfully edited'. $classes->classname.'!');
            return redirect()->back();
     }
 
@@ -212,6 +232,9 @@ class ClassesController extends Controller
         $request->session()->flash('message','You have successfully declined class'.$class->classname. ' !');
         $class->status = 'declined';
         $class->save();
+        $classRequest = Classes::findOrFail($id);
+        event(new ClassRequestEvent($classRequest));
+     
         return redirect()->back();
     }
 
@@ -222,6 +245,9 @@ class ClassesController extends Controller
         $class = Classes::findOrFail($value);
         $class->status = 'approved';
         $class->save();
+        $classRequest = Classes::findOrFail($value);
+        event(new ClassRequestEvent($classRequest));
+     
 
         }
                break;
@@ -231,6 +257,9 @@ class ClassesController extends Controller
         $class = Classes::findOrFail($value);
         $class->status = 'declined';
         $class->save();
+        $classRequest = Classes::findOrFail($value);
+        event(new ClassRequestEvent($classRequest));
+     
 
         }
                break;
@@ -249,6 +278,9 @@ class ClassesController extends Controller
         $class = Classes::findOrFail($value);
         $class->status = 'approved';
         $class->save();
+        $classRequest = Classes::findOrFail($value);
+        event(new ClassRequestEvent($classRequest));
+     
 
         }
 

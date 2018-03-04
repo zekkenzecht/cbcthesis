@@ -36,7 +36,7 @@ class FileController extends Controller
      */
     public function store(Request $request) 
     {
-         $file = $request->file('file');
+      $file = $request->file('file');
       $fileName = uniqid().'_'.time().'_'.$file->getClientOriginalName();
       $fileOriginal =  $file->getClientOriginalName();
       $file->move(public_path('files'),$fileName);

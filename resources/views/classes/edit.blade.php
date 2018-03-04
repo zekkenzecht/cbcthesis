@@ -10,46 +10,73 @@
 <ol class="breadcrumb">
 <li><a href="/dashboard">Dashboard</a></li>
 <li><a href="/admin/classes">Classes</a></li>
-<li><a href="/admin/classes/{{ $class->id }}/edit">Edit a Class</a></li>
+<li><a href="/admin/classes/{{ $class->id }}/edit">Edit Class</a></li>
 </ol>
 </section>
 @endsection
 @section('content')
 
+<section class="col-md-11">
+@if (Session::has('message'))
+
+ <div class="alert alert-success" role="alert">
+
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;
+
+    </span><span class="sr-only">Close</span></button>
+
+    <strong>{{ Session::get('message') }}</strong>
+
+</div>
+
+@endif
+</section>
+
 <div class="container">
     <div class="row">
         <div class="col-md-4">
             <div class="panel panel-success">
-                <div class="panel panel-heading">Edit a class</div>
+                <div class="panel panel-heading">Edit {{ $class->classname }}</div>
             <div class="panel-body">
                 {!! Form::open(['action' => ['ClassesController@update',$class->id],'method'=>'POST','id'=>'jvalidate']) !!}
+                {!! Form::hidden('_method','PUT', []) !!}
                 <div class="form-group">
                 {!! Form::label('name','Class Name:', ['class' => 'col-md-4 control-label']) !!}
                 {!! Form::text('name',$class->classname, ['placeholder' => 'Class Name','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                 {!! Form::label('description','Class Description: ', ['class' => 'control-label']) !!}
-                {!! Form::textarea('description',$class->description, ['class' => 'form-control','rows' => '9']) !!}
+                {!! Form::textarea('description',$class->description, ['class' => 'form-control','rows' => '5']) !!}
                 </div>  
                  <div class="form-group">
                  {!! Form::label('sessions','Class # of Sessions: ', ['class' => 'control-label']) !!}
-                <input type="number" value= "{{ $class->numberofsessions }}" name="sessions" placeholder="Number of sessions" class="form-control">
+                <input type="number" value="{{ $class->numberofsessions }}" name="sessions" placeholder="Number of sessions" id="sessions" class="form-control">
                 </div>  
                
                 <div class="form-group">   
                 <div class="row">
-                        {!! Form::label('date','Date: ', []) !!}
-                        
-                        <input type="text" value="{{ $class->schedule }}" class="form-control datepicker" name="date" >
-
+                    <div class="col-md-6">
+                        {!! Form::label('date','Start Date: ', []) !!}
+                        <input type="text" value="{{ date('Y-m-d',strtotime($class->startdate)) }}" id="dt1" class="form-control datepicker" name="date">
+                    </div>
+                    <div class="col-md-6">
+                        {!! Form::label('enddate','End Date: ', []) !!}
+                        <input type="text" value="{{ date('Y-m-d',strtotime($class->end_date)) }}" id="dt2" class="form-control" name="enddate" readonly>
+                    </div>
+                          
                 </div>                                     
                 </div>
+
+             <div class="form-group">
+                <label>Time Schedule: </label>   
+                 <input type="text" value="{{ date('g:i A',strtotime($class->startdate)) }}" class="form-control timepicker" name='time'/>
+            </div>
+
             </div>
          </div>
                 <div class="panel panel-footer">
-                    {!! Form::submit('Add Class', ['Class' => 'btn btn-block btn-lg btn-success']) !!}
+                    {!! Form::submit('Save Changes', ['Class' => 'btn btn-block btn-lg btn-success']) !!}
                 </div>
-                {!! Form::hidden('_method','PUT') !!}
                 {!! Form::close() !!}
 
         </div>
@@ -68,7 +95,8 @@
 @section('scripts')
 <script type='text/javascript' src="{{ asset('/backend/js/plugins/jquery-validation/jquery.validate.js') }}">
 </script>
-<script type='text/javascript' src='{{ asset('backend/js/plugins/bootstrap/bootstrap-datepicker.js') }}'></script>
+<script type='text/javascript' src='{{ asset('/backend/js/plugins/bootstrap/bootstrap-datepicker.js') }}'></script>
+<script type="text/javascript" src="{{ asset('/backend/js/plugins/bootstrap/bootstrap-timepicker.min.js') }}"></script>
 <script type="text/javascript">
     var jvalidate = $("#jvalidate").validate({
     ignore: [],
@@ -93,9 +121,53 @@
             date: {
                     required: true,
             },
+
+            enddate: {
+                    required: true,
+            },
+
+            time: {
+                    required: true,
+            },
+
             
         }                                        
     });       
 
+</script>
+<script type="text/javascript">
+
+// continue with the calculations
+$("#sessions").keyup(function () {
+
+           var someDate = new Date($('#dt1').val());
+           var numberOfDaysToAdd = parseInt($(this).val());
+           if (numberOfDaysToAdd == 1) {
+            someDate.setDate(someDate.getDate() + parseInt(0));
+             var date = someDate.getFullYear() + '-' + (someDate.getMonth()+parseInt(1)) + '-' + someDate.getDate();
+           $('#dt2').val(date);
+           } else {
+            var days = numberOfDaysToAdd--;
+             someDate.setDate(someDate.getDate() + parseInt(numberOfDaysToAdd * 7));
+            var date = someDate.getFullYear() + '-' + (someDate.getMonth()+parseInt(1)) + '-' + someDate.getDate();
+           $('#dt2').val(date);
+           }
+          
+       });
+$("#dt1").on('keyup change',function () {
+           var someDate = new Date($('#dt1').val());
+           var numberOfDaysToAdd = parseInt($('#sessions').val());
+           if (numberOfDaysToAdd == 1) {
+                someDate.setDate(someDate.getDate() + parseInt(0));
+           var date = someDate.getFullYear() + '-' + (someDate.getMonth()+parseInt(1)) + '-' + someDate.getDate();
+           $('#dt2').val(date)
+           } else {
+            var days = numberOfDaysToAdd--;
+            someDate.setDate(someDate.getDate() + parseInt(numberOfDaysToAdd * 7));
+           var date = someDate.getFullYear() + '-' + (someDate.getMonth()+parseInt(1)) + '-' + someDate.getDate();
+           $('#dt2').val(date);
+           }
+          
+       });
 </script>
 @endsection

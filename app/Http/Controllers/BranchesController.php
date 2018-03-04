@@ -14,6 +14,7 @@ class BranchesController extends Controller
     public function index()
     {
       $branches = Branch::all();
+      // DB::update('update users set votes = 100 where name = ?', ['John'])
       $branches2 = Branch::all();
       return view('branches.index',compact('branches'))->with('branches2',$branches2);
     }

@@ -4,6 +4,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
@@ -11,6 +12,7 @@ html {
 }
 body {
   margin: 0;
+  padding-top: 100px;
 }
 article,
 aside,
@@ -1117,12 +1119,19 @@ img {
 }
 .img-responsive,
 .thumbnail > img,
-.thumbnail a > img,
+.thumbnail a > img{
+   display: block;
+  max-width: 100%;
+  height: auto;
+    width: 100% !important;
+}
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
   display: block;
   max-width: 100%;
   height: auto;
+  height: 550px !important;
+    width: 100% !important;
 }
 .img-rounded {
   border-radius: 6px;
@@ -4495,6 +4504,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default {
   background-color: #f8f8f8;
   border-color: #e7e7e7;
+  -webkit-box-shadow: -5px 7px 30px 3px rgba(0,0,0,0.75);
+-moz-box-shadow: -5px 7px 30px 3px rgba(0,0,0,0.75);
+box-shadow: -5px 7px 30px 3px rgba(0,0,0,0.75);
+
 }
 .navbar-default .navbar-brand {
   color: #777;
@@ -6241,6 +6254,7 @@ button.close {
   position: relative;
   width: 100%;
   overflow: hidden;
+  
 }
 .carousel-inner > .item {
   position: relative;

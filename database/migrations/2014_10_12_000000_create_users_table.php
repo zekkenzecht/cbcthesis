@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable();
             $table->date('birthdate')->nullable();
             $table->string('status')->default('for-activation');
-            $table->enum('ministry,',
+            $table->enum('ministry',
                 [
                 'NONE','CTSA','MISSIONS',
                 'COMMUNICATION MEDIA DEPARTMENT',

@@ -7,7 +7,9 @@ use Calendar;
 use App\Classes;
 use App\ClassSchedules;
 use DB;
+use App\Events\ClassRequestEvent;
 use Auth;
+
 class ClassesRequestController extends Controller
 {
     /**
@@ -18,6 +20,7 @@ class ClassesRequestController extends Controller
     public function index()
     {
         $classes = Classes::where('user_id','=',Auth::id())->get();
+        
         return view('classes.requests.index')->with('classes',$classes);
     }
 
@@ -184,19 +187,17 @@ class ClassesRequestController extends Controller
         DB::table('classschedules')->where('class_id','=',$id)->delete();
     }
 
-    public function bulkDelete(Request $request)
-    {
-
-
-    }
-
+  
     public function approve(Request $request,$id)
     {
         $classes = Classes::findOrFail($id);
         $classes->status = 'approved';
         $classes->save();
         $request->session()->flash('message',"You have Successfully approved $classes->classname !");
-
+        $request->session()->flash('active-second',"active");
+        $classRequest = Classes::findOrFail($id);
+        event(new ClassRequestEvent($classRequest));
+     
         return redirect()->back();
     }
     public function deny(Request $request,$id)
@@ -205,6 +206,10 @@ class ClassesRequestController extends Controller
         $classes->status = 'declined';
         $classes->save();
         $request->session()->flash('message',"You have declined $classes->classname !");
-        return redirect()->back();
+        $request->session()->flash('active',"active");
+        $classRequest = Classes::findOrFail($id);
+        event(new ClassRequestEvent($classRequest));
+        return redirect()->back();  
+
     }
 }

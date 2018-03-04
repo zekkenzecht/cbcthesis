@@ -18,6 +18,8 @@ class ProfileController extends Controller
     	}
     }
     public function update(Request $request,$id){
+
+
     	if (Auth::check()==true) {
     		$user = User::findOrFail($id);
     	$user = User::findOrFail($id);
@@ -32,7 +34,7 @@ class ProfileController extends Controller
         	$user->avatar = $user->avatar;
         }
        
-
+  
         $user->name = $request->name;
         $user->email = $request->email;
         $user->address = $request->address;
@@ -42,10 +44,12 @@ class ProfileController extends Controller
         $user->save();
  
         return redirect()->back();
-    	}else{
-    		return redirect('/home');
     	}
 
 
+    }
+
+    public function show($id){
+        return view('users.show');
     }
 }

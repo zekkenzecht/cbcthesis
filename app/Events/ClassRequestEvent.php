@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class ClassRequestEvent
+class ClassRequestEvent 
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,11 +19,13 @@ class ClassRequestEvent
      *
      * @return void
      */
-    public $message;
+
+
+    public $notification;
     
-    public function __construct($message)
+    public function __construct($notification)
     {
-        $this->message = $message;
+        $this->notification = $notification;
     }
 
     /**
@@ -33,6 +35,6 @@ class ClassRequestEvent
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new channel('classrequest');
     }
 }

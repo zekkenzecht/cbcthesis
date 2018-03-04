@@ -9,6 +9,13 @@
 </li>
 
 <li class="xn-openable">
+    <a href="#"><span class="glyphicon glyphicon-globe"></span><span class="xn-text">Website Content</span></a>
+    <ul>
+    <li><a href="/admin/classes"><span class="glyphicon glyphicon-home"></span>Homepage</a></li>
+    </ul>
+</li>
+
+<li class="xn-openable">
     <a href="#"><span class="glyphicon glyphicon-book"></span><span class="xn-text">Classes</span></a>
     <ul>
     <li><a href="/admin/classes"><span class="glyphicon glyphicon-book"></span>Class Manager</a></li>

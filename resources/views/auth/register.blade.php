@@ -10,7 +10,7 @@
    <link href="{{ asset('front/css/style.css') }}" rel="stylesheet" type="text/css">
 
 </head>
-<body>
+<body style="padding-top: 0px;">
 <div class="container-fluid bg">
 
   <div class="row">

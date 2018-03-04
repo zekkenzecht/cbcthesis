@@ -12,17 +12,20 @@
 */
 
 use App\Events\ClassRequestEvent;
+
 Route::get('/dashboard','PagesController@dashboard');
 
 Route::get('/editprofile/{id}','User\\ProfileController@edit');
 
 Route::put('/editprofile/{id}/update','User\\ProfileController@update');
 
-Route::get('/',function(){
-	
-	return redirect('/home');
+Route::get('/','PagesController@homepage');
 
+Route::get('markasreadclassreq', function() {
+    auth()->user()->unreadNotifications->markAsRead();
 });
+
+Route::get('/profile/{id}','User\\ProfileController@show');
 
 Route::post('/registration','User\\RegisterController@store')->name('register');
 //--Route for User management--//
@@ -86,9 +89,13 @@ Route::middleware(['role:super-admin'])->group(function () {
 		
 		Route::get('/files/{id}/del','FileController@destroy');
 
-		Route::get('/event/event/event',function(){
-			event(new ClassRequestEvent('how are you'));
-		});
+		Route::get('/content/homepage','Cms\\HomePageController@index');
+
+		Route::put('/content/homepage/slider','Cms\\HomePageController@slider');
+
+		Route::resource('/attendance','AttendanceController');
+
+		
 });
 
 });
