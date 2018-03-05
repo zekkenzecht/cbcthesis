@@ -45,7 +45,7 @@
     <td><img src="{{ asset("$result->avatar") }}" height="75px" width="75px"></td>
     <td>{{ $result->name  }}</td>
     <td>{{ $result->email }}</td>
-    <td>{{ $result->assimilation_name }}</td>
+    <td>{{ $result->nameassimilation }}</td>
     <td>
         {!! Form::button('Enroll', ['class' => 'btn btn-info btn-block','data-toggle' => 'modal' ,'data-target' => "#$result->id"]) !!}
     </td>

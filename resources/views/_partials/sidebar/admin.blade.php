@@ -19,8 +19,8 @@
     <a href="#"><span class="glyphicon glyphicon-book"></span><span class="xn-text">Classes</span></a>
     <ul>
     <li><a href="/admin/classes"><span class="glyphicon glyphicon-book"></span>Class Manager</a></li>
+     <li><a href="/admin/classes/enrollment"><span class="glyphicon glyphicon-book"></span>Enrollment in Classes</a></li>
     <li><a href="/admin/classes/calendar"><span class="fa fa-calendar"></span><span class="xn-text">Classes Calendar</span></a></li>
-    
     </ul>
 </li>
 

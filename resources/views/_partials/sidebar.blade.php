@@ -45,6 +45,4 @@
 
 </ul>
 
-    <!-- END X-NAVIGATION -->
 </div>
-<!-- END PAGE SIDEBAR -->

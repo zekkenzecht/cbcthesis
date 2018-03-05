@@ -24,7 +24,7 @@
                         <select name="assimilation">
                           <option value="0">NONE</option>
                          @foreach ($assimilation as $assimilations)
-                           <option value="{{ $assimilations->id }}">{{ $assimilations->assimilation_name }}</option>
+                           <option value="{{ $assimilations->id }}">{{ $assimilations->nameassimilation }}</option>
                          @endforeach
                         </select>
                       </td>

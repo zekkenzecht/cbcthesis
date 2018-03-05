@@ -19,10 +19,10 @@ class EnrollmentController extends Controller
         $user = User::where('status','=','active')->get();
         $enrollModal = User::all();
         $assimilation = Assimilation::all();
-       $result = DB::select(DB::raw('SELECT *
-FROM assimilations as assim INNER JOIN Enrollments as Enr
-ON assim.id = Enr.assimilation_id
-INNER JOIN users as us ON us.id = enr.user_id'));
+      $result = DB::select(DB::raw('SELECT *
+        FROM assimilations as assim INNER JOIN Enrollments as Enr
+        ON assim.id = Enr.assimilation_id
+        INNER JOIN users as us ON us.id = enr.user_id'));
         return view('enrollment.index')
          ->with('user',$user)
          ->with('assimilation',$assimilation)
@@ -48,9 +48,20 @@ INNER JOIN users as us ON us.id = enr.user_id'));
      */
     public function store(Request $request,$id)
     {
-         $idass = $request->assimilation;
-         DB::table('enrollments')->where('user_id', '=', $id)->delete();
+        $idass = $request->assimilation;
+        DB::table('enrollments')->where('user_id', '=', $id)->delete();
         DB::insert('insert into enrollments (user_id, assimilation_id) values (?, ?)', [$id, $idass]);
+        
+       $assimUser = DB::table('assimilations_user')->where('user_id','=',$id)->where('id','=',$idass)->where('status','=','on-going')->orWhere('status','=','finished')->get();
+     $assimStat = DB::table('assimilations_user')->where('status','=','on-going')->where('user_id','=',$id);
+
+        if ($assimUser->count() == 0 AND $assimStat->count() == 0 ) {
+          DB::insert('insert into assimilations_user (id, user_id,status) values (?, ?,?)', [$idass,$id,'on-going']);
+          
+        }else{
+            
+        }
+
         return redirect()->back();
     }
 

@@ -95,6 +95,8 @@ Route::middleware(['role:super-admin'])->group(function () {
 
 		Route::resource('/attendance','AttendanceController');
 
+		Route::resource('/classenroll','ClassEnrollController');
+
 		
 });
 
@@ -137,8 +139,9 @@ Route::middleware(['role:super-admin'])->group(function () {
 		Route::resource('/media','MediaController');
 		//--End--//
 
-		Route::resource('/enrollment','EnrollmentController');
+		Route::resource('/enrollmentassim','EnrollmentController');
 		Route::post('/enrollment/{id}/user','EnrollmentController@store');	
+		Route::post('/classenroll/{id}/user','ClassEnrollController@store');
 		Route::post('/enrollment/bulkenroll','EnrollmentController@bulkEnroll');
 		Route::post('/classes/blkapprove','ClassesController@bulkApprove');
 		Route::get('/classes/{id}/approve','ClassesRequestController@approve');
